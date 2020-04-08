@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Dati Italia</string>
+    <string name="title_activity_start">Dati Italia</string>
+    <string name="tab_text_1">Nazionale</string>
+    <string name="tab_text_2">Regioni</string>
+    <string name="tab_text_3">Province</string>
+    <string name="tab_text_4">Data</string>
+
+    <!-- URL DALLA PROTEZIONE CIVILE -->
+    <string name="andamento_nazionale_latest">https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale-latest.json</string>
+</resources>
