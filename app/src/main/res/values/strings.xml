@@ -8,4 +8,6 @@
 
     <!-- URL DALLA PROTEZIONE CIVILE -->
     <string name="andamento_nazionale_latest">https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale-latest.json</string>
+    <string name="andamento_nazionale">https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json</string>
+
 </resources>
