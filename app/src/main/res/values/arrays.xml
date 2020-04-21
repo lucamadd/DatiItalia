@@ -1,0 +1,506 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <string-array name="regioni_entries">
+        <item>Abruzzo</item>
+        <item>Basilicata</item>
+        <item>P.A. Bolzano</item>
+        <item>Calabria</item>
+        <item>Campania</item>
+        <item>Emilia-Romagna</item>
+        <item>Friuli Venezia Giulia</item>
+        <item>Lazio</item>
+        <item>Liguria</item>
+        <item>Lombardia</item>
+        <item>Marche</item>
+        <item>Molise</item>
+        <item>Piemonte</item>
+        <item>Puglia</item>
+        <item>Sardegna</item>
+        <item>Sicilia</item>
+        <item>Toscana</item>
+        <item>P.A. Trento</item>
+        <item>Umbria</item>
+        <item>Valle d\'Aosta</item>
+        <item>Veneto</item>
+    </string-array>
+
+    <string-array name="regioni_values">
+        <item>Abruzzo</item>
+        <item>Basilicata</item>
+        <item>P.A. Bolzano</item>
+        <item>Calabria</item>
+        <item>Campania</item>
+        <item>Emilia-Romagna</item>
+        <item>Friuli Venezia Giulia</item>
+        <item>Lazio</item>
+        <item>Liguria</item>
+        <item>Lombardia</item>
+        <item>Marche</item>
+        <item>Molise</item>
+        <item>Piemonte</item>
+        <item>Puglia</item>
+        <item>Sardegna</item>
+        <item>Sicilia</item>
+        <item>Toscana</item>
+        <item>P.A. Trento</item>
+        <item>Umbria</item>
+        <item>Valle d\'Aosta</item>
+        <item>Veneto</item>
+    </string-array>
+
+    <string-array name="province_entries">
+
+        <item>Agrigento</item>
+
+        <item>Alessandria</item>
+
+        <item>Ancona</item>
+
+        <item>Aosta</item>
+
+        <item>Arezzo</item>
+
+        <item>Ascoli Piceno</item>
+
+        <item>Asti</item>
+
+        <item>Avellino</item>
+
+        <item>Bari</item>
+
+        <item>Barletta-Andria-Trani</item>
+
+        <item>Belluno</item>
+
+        <item>Benevento</item>
+
+        <item>Bergamo</item>
+
+        <item>Biella</item>
+
+        <item>Bologna</item>
+
+        <item>Bolzano</item>
+
+        <item>Brescia</item>
+
+        <item>Brindisi</item>
+
+        <item>Cagliari</item>
+
+        <item>Caltanissetta</item>
+
+        <item>Campobasso</item>
+
+        <item>Carbonia-Iglesias</item>
+
+        <item>Caserta</item>
+
+        <item>Catania</item>
+
+        <item>Catanzaro</item>
+
+        <item>Chieti</item>
+
+        <item>Como</item>
+
+        <item>Cosenza</item>
+
+        <item>Cremona</item>
+
+        <item>Crotone</item>
+
+        <item>Cuneo</item>
+
+        <item>Enna</item>
+
+        <item>Fermo</item>
+
+        <item>Ferrara</item>
+
+        <item>Firenze</item>
+
+        <item>Foggia</item>
+
+        <item>Forli-Cesena</item>
+
+        <item>Frosinone</item>
+
+        <item>Genova</item>
+
+        <item>Gorizia</item>
+
+        <item>Grosseto</item>
+
+        <item>Imperia</item>
+
+        <item>Isernia</item>
+
+        <item>L\'Aquila</item>
+
+        <item>La Spezia</item>
+
+        <item>Latina</item>
+
+        <item>Lecce</item>
+
+        <item>Lecco</item>
+
+        <item>Livorno</item>
+
+        <item>Lodi</item>
+
+        <item>Lucca</item>
+
+        <item>Macerata</item>
+
+        <item>Mantova</item>
+
+        <item>Massa e Carrara</item>
+
+        <item>Matera</item>
+
+        <item>Medio Campidano</item>
+
+        <item>Messina</item>
+
+        <item>Milano</item>
+
+        <item>Modena</item>
+
+        <item>Monza e della Brianza</item>
+
+        <item>Napoli</item>
+
+        <item>Novara</item>
+
+        <item>Nuoro</item>
+
+        <item>Ogliastra</item>
+
+        <item>Olbia-Tempio</item>
+
+        <item>Oristano</item>
+
+        <item>Padova</item>
+
+        <item>Palermo</item>
+
+        <item>Parma</item>
+
+        <item>Pavia</item>
+
+        <item>Perugia</item>
+
+        <item>Pesaro e Urbino</item>
+
+        <item>Pescara</item>
+
+        <item>Piacenza</item>
+
+        <item>Pisa</item>
+
+        <item>Pistoia</item>
+
+        <item>Pordenone</item>
+
+        <item>Potenza</item>
+
+        <item>Prato</item>
+
+        <item>Ragusa</item>
+
+        <item>Ravenna</item>
+
+        <item>Reggio Calabria</item>
+
+        <item>Reggio Emilia</item>
+
+        <item>Rieti</item>
+
+        <item>Rimini</item>
+
+        <item>Roma</item>
+
+        <item>Rovigo</item>
+
+        <item>Salerno</item>
+
+        <item>Sassari</item>
+
+        <item>Savona</item>
+
+        <item>Siena</item>
+
+        <item>Siracusa</item>
+
+        <item>Sondrio</item>
+
+        <item>Taranto</item>
+
+        <item>Teramo</item>
+
+        <item>Terni</item>
+
+        <item>Torino</item>
+
+        <item>Trapani</item>
+
+        <item>Trento</item>
+
+        <item>Treviso</item>
+
+        <item>Trieste</item>
+
+        <item>Udine</item>
+
+        <item>Varese</item>
+
+        <item>Venezia</item>
+
+        <item>Verbano-Cusio-Ossola</item>
+
+        <item>Vercelli</item>
+
+        <item>Verona</item>
+
+        <item>Vibo Valentia</item>
+
+        <item>Vicenza</item>
+
+        <item>Viterbo</item>
+    </string-array>
+    
+    <string-array name="province_values">
+
+        <item>AG</item>
+
+        <item>AL</item>
+
+        <item>AN</item>
+
+        <item>AO</item>
+
+        <item>AR</item>
+
+        <item>AP</item>
+
+        <item>AT</item>
+
+        <item>AV</item>
+
+        <item>BA</item>
+
+        <item>BT</item>
+
+        <item>BL</item>
+
+        <item>BN</item>
+
+        <item>BG</item>
+
+        <item>BI</item>
+
+        <item>BO</item>
+
+        <item>BZ</item>
+
+        <item>BS</item>
+
+        <item>BR</item>
+
+        <item>CA</item>
+
+        <item>CL</item>
+
+        <item>CB</item>
+
+        <item>CI</item>
+
+        <item>CE</item>
+
+        <item>CT</item>
+
+        <item>CZ</item>
+
+        <item>CH</item>
+
+        <item>CO</item>
+
+        <item>CS</item>
+
+        <item>CR</item>
+
+        <item>KR</item>
+
+        <item>CN</item>
+
+        <item>EN</item>
+
+        <item>FM</item>
+
+        <item>FE</item>
+
+        <item>FI</item>
+
+        <item>FG</item>
+
+        <item>FC</item>
+
+        <item>FR</item>
+
+        <item>GE</item>
+
+        <item>GO</item>
+
+        <item>GR</item>
+
+        <item>IM</item>
+
+        <item>IS</item>
+
+        <item>AQ</item>
+
+        <item>SP</item>
+
+        <item>LT</item>
+
+        <item>LE</item>
+
+        <item>LC</item>
+
+        <item>LI</item>
+
+        <item>LO</item>
+
+        <item>LU</item>
+
+        <item>MC</item>
+
+        <item>MN</item>
+
+        <item>MS</item>
+
+        <item>MT</item>
+
+        <item>VS</item>
+
+        <item>ME</item>
+
+        <item>MI</item>
+
+        <item>MO</item>
+
+        <item>MB</item>
+
+        <item>NA</item>
+
+        <item>NO</item>
+
+        <item>NU</item>
+
+        <item>OG</item>
+
+        <item>OT</item>
+
+        <item>OR</item>
+
+        <item>PD</item>
+
+        <item>PA</item>
+
+        <item>PR</item>
+
+        <item>PV</item>
+
+        <item>PG</item>
+
+        <item>PS</item>
+
+        <item>PE</item>
+
+        <item>PC</item>
+
+        <item>PI</item>
+
+        <item>PT</item>
+
+        <item>PN</item>
+
+        <item>PZ</item>
+
+        <item>PO</item>
+
+        <item>RG</item>
+
+        <item>RA</item>
+
+        <item>RC</item>
+
+        <item>RE</item>
+
+        <item>RI</item>
+
+        <item>RN</item>
+
+        <item>RM</item>
+
+        <item>RO</item>
+
+        <item>SA</item>
+
+        <item>SS</item>
+
+        <item>SV</item>
+
+        <item>SI</item>
+
+        <item>SR</item>
+
+        <item>SO</item>
+
+        <item>TA</item>
+
+        <item>TE</item>
+
+        <item>TR</item>
+
+        <item>TO</item>
+
+        <item>TP</item>
+
+        <item>TN</item>
+
+        <item>TV</item>
+
+        <item>TS</item>
+
+        <item>UD</item>
+
+        <item>VA</item>
+
+        <item>VE</item>
+
+        <item>VB</item>
+
+        <item>VC</item>
+
+        <item>VR</item>
+
+        <item>VV</item>
+
+        <item>VI</item>
+
+        <item>VT</item>
+    </string-array>
+</resources>

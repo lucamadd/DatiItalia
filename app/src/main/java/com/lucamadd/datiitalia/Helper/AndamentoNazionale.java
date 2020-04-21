@@ -1,6 +1,10 @@
 package com.lucamadd.datiitalia.Helper;
 
-public class AndamentoNazionale {
+import com.lucamadd.datiitalia.SettingsActivity;
+
+import java.io.Serializable;
+
+public class AndamentoNazionale implements Serializable {
     private String data;
     private String stato;
     private int ricoverati_con_sintomi;

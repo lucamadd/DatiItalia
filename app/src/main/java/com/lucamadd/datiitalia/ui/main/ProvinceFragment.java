@@ -1,21 +1,15 @@
 package com.lucamadd.datiitalia.ui.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.AudioAttributes;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.util.JsonReader;
 import android.util.Log;
-import android.util.MalformedJsonException;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,83 +18,51 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.lucamadd.datiitalia.Helper.AndamentoNazionale;
+import com.lucamadd.datiitalia.Helper.AndamentoProvinciale;
 import com.lucamadd.datiitalia.Helper.AndamentoRegionale;
 import com.lucamadd.datiitalia.Helper.DataHelper;
 import com.lucamadd.datiitalia.Helper.VolleyCallBack;
 import com.lucamadd.datiitalia.R;
-import com.lucamadd.datiitalia.SettingsActivity;
-import com.lucamadd.datiitalia.StartActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.net.InetAddress;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RegioniFragment extends Fragment {
+public class ProvinceFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private TextView casi_totali_regioni = null;
-    private TextView ricoverati_con_sintomi = null;
-    private TextView terapia_intensiva = null;
-    private TextView totale_ospedalizzati = null;
-    private TextView isolamento_domiciliare = null;
-    private TextView totale_attualmente_positivi = null;
-    private TextView variazione_totale_positivi = null;
-    private TextView dimessi_guariti = null;
-    private TextView deceduti = null;
-    private TextView tamponi = null;
 
-    private TextView casi_totali_regioni_piu = null;
-    private TextView ricoverati_con_sintomi_piu = null;
-    private TextView terapia_intensiva_piu = null;
-    private TextView totale_ospedalizzati_piu = null;
-    private TextView isolamento_domiciliare_piu = null;
-    private TextView totale_attualmente_positivi_piu = null;
-    private TextView dimessi_guariti_piu = null;
-    private TextView deceduti_piu = null;
-    private TextView tamponi_piu = null;
+    private TextView casi_totali_province = null;
+    private TextView casi_totali_province_piu = null;
+
+
     private PageViewModel pageViewModel;
 
     private LinearLayout firstLayout = null;
     private LinearLayout masterLayout = null;
     private LinearLayout retryLayout = null;
-    private ProgressBar regioniProgressBar = null;
+    private ProgressBar provinceProgressBar = null;
 
     private DecimalFormat decim = new DecimalFormat("#,###");
 
-    private Button regioniEditButton = null;
+    private Button provinceEditButton = null;
     private Button retryButton = null;
 
-    private ArrayList<AndamentoRegionale> datiRegionali = null;
-    private ArrayList<AndamentoRegionale> variazioneDatiRegionali = null;
+    private ArrayList<AndamentoProvinciale> datiProvinciali = null;
+    private ArrayList<AndamentoProvinciale> variazioneDatiProvinciali = null;
 
     private final String[] selectedRegion = {""};
     private TextView regioneTextView = null;
@@ -109,8 +71,8 @@ public class RegioniFragment extends Fragment {
     private DataHelper data;
 
 
-    public static RegioniFragment newInstance(int index) {
-        RegioniFragment fragment = new RegioniFragment();
+    public static ProvinceFragment newInstance(int index) {
+        ProvinceFragment fragment = new ProvinceFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("index",index);
         fragment.setArguments(bundle);
@@ -135,8 +97,7 @@ public class RegioniFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.fragment_regioni, container, false);
+        View root = inflater.inflate(R.layout.fragment_province, container, false);
 
 
 
@@ -144,7 +105,7 @@ public class RegioniFragment extends Fragment {
         String favRegion= prefs.getString("regione","");
         selectedRegion[0] = favRegion;
 
-        spinner = root.findViewById(R.id.spinner_regioni);
+        spinner = root.findViewById(R.id.spinner_province);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getContext(),
@@ -168,10 +129,10 @@ public class RegioniFragment extends Fragment {
             }
         });
 
-        regioniProgressBar = root.findViewById(R.id.regioni_progress_bar);
-        masterLayout = root.findViewById(R.id.regioni_master_layout);
-        firstLayout = root.findViewById(R.id.regioni_first_layout);
-        retryLayout = root.findViewById(R.id.regioni_retry_layout);
+        provinceProgressBar = root.findViewById(R.id.province_progress_bar);
+        masterLayout = root.findViewById(R.id.province_master_layout);
+        firstLayout = root.findViewById(R.id.province_first_layout);
+        retryLayout = root.findViewById(R.id.province_retry_layout);
 
 
 
@@ -180,13 +141,13 @@ public class RegioniFragment extends Fragment {
 
 
         regioneTextView = root.findViewById(R.id.regione_textview);
-        regioniEditButton = root.findViewById(R.id.regioni_edit_button);
-        regioniEditButton.setOnClickListener(new View.OnClickListener() {
+        provinceEditButton = root.findViewById(R.id.province_edit_button);
+        provinceEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 vibe.vibrate(20);
-                if (regioniEditButton.getBackground().getConstantState() == getResources().getDrawable(R.drawable.edit).getConstantState()){
-                    regioniEditButton.setBackground(getResources().getDrawable(R.drawable.ok));
+                if (provinceEditButton.getBackground().getConstantState() == getResources().getDrawable(R.drawable.edit).getConstantState()){
+                    provinceEditButton.setBackground(getResources().getDrawable(R.drawable.ok));
                     spinner.setEnabled(true);
                     spinner.performClick();
                     masterLayout.setVisibility(View.GONE);
@@ -194,12 +155,13 @@ public class RegioniFragment extends Fragment {
                     if (!regioneTextView.getText().toString().equals("Scegli una regione")){
                         regioneTextView.setVisibility(View.GONE);
                         spinner.setVisibility(View.VISIBLE);
+                        provinceProgressBar.setVisibility(View.VISIBLE);
                         spinner.setEnabled(false);
-                        regioniEditButton.setBackground(getResources().getDrawable(R.drawable.edit));
+                        provinceEditButton.setBackground(getResources().getDrawable(R.drawable.edit));
                         selectedRegion[0] = spinner.getSelectedItem().toString();
                         tryConnection();
                     } else {
-                        regioniEditButton.setBackground(getResources().getDrawable(R.drawable.edit));
+                        provinceEditButton.setBackground(getResources().getDrawable(R.drawable.edit));
                     }
                 }
             }
@@ -207,16 +169,16 @@ public class RegioniFragment extends Fragment {
 
 
 
-        retryButton = root.findViewById(R.id.regioni_retry_button);
+        retryButton = root.findViewById(R.id.province_retry_button);
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 retryLayout.setVisibility(View.GONE);
-                regioniProgressBar.setVisibility(View.VISIBLE);
+                provinceProgressBar.setVisibility(View.VISIBLE);
                 if (isOnline()){
                     new Connection().execute();
                 } else {
-                    regioniProgressBar.setVisibility(View.GONE);
+                    provinceProgressBar.setVisibility(View.GONE);
                     retryLayout.setVisibility(View.VISIBLE);
                 }
             }
@@ -224,26 +186,10 @@ public class RegioniFragment extends Fragment {
 
         masterLayout.setVisibility(View.GONE);
 
-        casi_totali_regioni  = root.findViewById(R.id.casitotaliregioni);
-        ricoverati_con_sintomi = root.findViewById(R.id.ricoveraticonsintomiregioni);
-        terapia_intensiva = root.findViewById(R.id.terapiaintensivaregioni);
-        totale_ospedalizzati = root.findViewById(R.id.totaleospedalizzatiregioni);
-        isolamento_domiciliare = root.findViewById(R.id.isolamentodomiciliareregioni);
-        totale_attualmente_positivi = root.findViewById(R.id.totaleattualmentepositiviregioni);
-        variazione_totale_positivi = root.findViewById(R.id.totaleattualmentepositiviregionipiu);
-        dimessi_guariti = root.findViewById(R.id.dimessiguaritiregioni);
-        deceduti = root.findViewById(R.id.decedutiregioni);
-        tamponi = root.findViewById(R.id.tamponiregioni);
+        casi_totali_province  = root.findViewById(R.id.casitotaliprovince);
 
-        casi_totali_regioni_piu = root.findViewById(R.id.casitotaliregionipiu);
-        ricoverati_con_sintomi_piu = root.findViewById(R.id.ricoveraticonsintomiregionipiu);
-        terapia_intensiva_piu = root.findViewById(R.id.terapiaintensivaregionipiu);
-        totale_ospedalizzati_piu = root.findViewById(R.id.totaleospedalizzatiregionipiu);
-        isolamento_domiciliare_piu = root.findViewById(R.id.isolamentodomiciliareregionipiu);
-        totale_attualmente_positivi_piu = root.findViewById(R.id.totaleattualmentepositiviregionipiu);
-        dimessi_guariti_piu = root.findViewById(R.id.dimessiguaritiregionipiu);
-        deceduti_piu = root.findViewById(R.id.decedutiregionipiu);
-        tamponi_piu = root.findViewById(R.id.tamponiregionipiu);
+        casi_totali_province_piu = root.findViewById(R.id.casitotaliprovincepiu);
+
         /*
         final TextView textView = root.findViewById(R.id.section_label);
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -256,8 +202,8 @@ public class RegioniFragment extends Fragment {
         data = new DataHelper();
 
         if (selectedRegion[0].equals("")){
-            regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
+            provinceProgressBar.setVisibility(View.GONE);
+            firstLayout.removeView(provinceProgressBar);
             spinner.setVisibility(View.INVISIBLE);
             regioneTextView.setVisibility(View.VISIBLE);
         } else {
@@ -271,95 +217,199 @@ public class RegioniFragment extends Fragment {
         return root;
     }
 
+    private void tryConnection(){
+        provinceProgressBar.setVisibility(View.VISIBLE);
+        retryLayout.setVisibility(View.GONE);
+        Log.i("SELECTED REGION IS ", selectedRegion[0] + " DDD");
+        if (!selectedRegion[0].equals("")){
+            if (isOnline()){
+                new Connection().execute();
+/*
+        data.getMoreRegioniData(getContext(), new VolleyCallBack(){
+
+            @Override
+            public void onSuccess() {
+                variazioneDatiRegionali = data.getVariazioneDatiRegionali();
+                setMoreData(variazioneDatiRegionali, selectedRegion[0]);
+
+                //Log.i("DATI NAZIONALI ARE",datiNazionali == null && variazioneDatiNazionali == null? " NULL":" NOT NULL");
+
+
+            }
+        });
+
+
+*/
+
+            } else {
+                provinceProgressBar.setVisibility(View.GONE);
+                masterLayout.setVisibility(View.GONE);
+                retryLayout.setVisibility(View.VISIBLE);
+            }
+        } else {
+            provinceProgressBar.setVisibility(View.GONE);
+            firstLayout.removeView(provinceProgressBar);
+            spinner.setVisibility(View.INVISIBLE);
+            regioneTextView.setVisibility(View.VISIBLE);
+        }
+
+
+
+    }
+
     private class Connection extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
-            data.getRegioniDataLatest();
-            data.getMoreRegioniData();
+            data.getProvinceDataLatest();
+            data.getMoreProvinceData();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            datiRegionali = data.getDatiRegionali();
-            variazioneDatiRegionali = data.getVariazioneDatiRegionali();
-            setData(datiRegionali,selectedRegion[0]);
-            setMoreData(variazioneDatiRegionali,selectedRegion[0]);
+            datiProvinciali = data.getDatiProvinciali();
+            variazioneDatiProvinciali = data.getVariazioneDatiProvinciali();
+            setData(datiProvinciali, variazioneDatiProvinciali, selectedRegion[0]);
+
         }
     }
 
-    private void tryConnection(){
-        regioniProgressBar.setVisibility(View.GONE);
-        retryLayout.setVisibility(View.GONE);
-        //Log.i("SELECTED REGION IS ", selectedRegion[0] + " DDD");
-        if (!selectedRegion[0].equals("")){
-            if (isOnline()){
-                new Connection().execute();
+
+    private void setData(ArrayList<AndamentoProvinciale> dati, ArrayList<AndamentoProvinciale> datiNuovi, String regione){
 
 
-            } else {
-                regioniProgressBar.setVisibility(View.GONE);
-                masterLayout.setVisibility(View.GONE);
-                retryLayout.setVisibility(View.VISIBLE);
-
+        ArrayList<AndamentoProvinciale> selectedProvince = new ArrayList<>();
+        for (AndamentoProvinciale ar: dati){
+            if (ar.getDenominazione_regione().equals(regione)) {
+                selectedProvince.add(ar);
+                Log.i("DEBUG", "\ncodice_regione: " + ar.getCodice_regione() +
+                        "\ndenominazione_regione: " + ar.getDenominazione_regione() +
+                        "\ntotale_casi: " + ar.getTotale_casi() +
+                        "\ndenominazione_provincia: " + ar.getDenominazione_provincia());
             }
-        } else {
-            regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
-            spinner.setVisibility(View.INVISIBLE);
-            regioneTextView.setVisibility(View.VISIBLE);
+
+        }
+        ArrayList<AndamentoProvinciale> selectedProvinceNuovi = new ArrayList<>();
+        for (AndamentoProvinciale ar: datiNuovi){
+            if (ar.getDenominazione_regione().equals(regione)) {
+                selectedProvinceNuovi.add(ar);
+                Log.i("DEBUG", "\ncodice_regione: " + ar.getCodice_regione() +
+                        "\ndenominazione_regione: " + ar.getDenominazione_regione() +
+                        "\ntotale_casi: " + ar.getTotale_casi() +
+                        "\ndenominazione_provincia: " + ar.getDenominazione_provincia());
+            }
+
         }
 
 
-    }
+        if (dati != null && selectedProvince != null){
+            Log.i("hjhj","pp "+masterLayout.getChildCount());
+            masterLayout.removeViews(1,masterLayout.getChildCount()-1);
 
+            int cases = 0;
+            int newCases = 0;
 
-    private void setData(ArrayList<AndamentoRegionale> dati, String regione){
-        AndamentoRegionale selectedRegion = null;
-        for (AndamentoRegionale ar: dati){
-            if (ar.getDenominazione_regione().equals(regione)){
-                selectedRegion = ar;
+            for (int i=0;i<selectedProvince.size();i++){
+
+                cases += selectedProvince.get(i).getTotale_casi();
+                newCases += selectedProvinceNuovi.get(i).getTotale_casi();
+
+                casi_totali_province.setText(decim.format(cases) + " casi");
+                casi_totali_province_piu.setText("+" + decim.format(newCases));
+
+                //relativelayout
+                RelativeLayout whiteLayout = new RelativeLayout(getContext());
+                RelativeLayout.LayoutParams whiteParams = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                if (i != selectedProvince.size() - 1)
+                    whiteParams.setMargins(0,20,0,0);
+                else
+                    whiteParams.setMargins(0,20,0,50);
+                whiteLayout.setLayoutParams(whiteParams);
+
+                //cardview
+                CardView whiteCard = new CardView(getContext());
+                RelativeLayout.LayoutParams whiteCardParams = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, 160);
+                whiteCardParams.setMargins(0,20,0,0);
+                whiteCard.setLayoutParams(whiteCardParams);
+                whiteCard.setRadius(16);
+                whiteCard.setElevation(16);
+                whiteCard.setClipToPadding(false);
+                whiteCard.setClipChildren(false);
+                whiteCard.setCardElevation(20);
+                whiteCard.setPreventCornerOverlap(false);
+
+                //relativelayout
+                RelativeLayout innerLayout = new RelativeLayout(getContext());
+                RelativeLayout.LayoutParams innerParams = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                innerLayout.setLayoutParams(innerParams);
+                innerLayout.setPadding(20,16,16,16);
+                innerLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                //first textview
+                TextView provinceName = new TextView(getContext());
+                RelativeLayout.LayoutParams tv1Params = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                provinceName.setLayoutParams(tv1Params);
+                provinceName.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnambold));
+                provinceName.setTextColor(Color.parseColor("#000000"));
+                provinceName.setText(selectedProvince.get(i).getDenominazione_provincia());
+
+                //second textview
+                TextView provinceCasi = new TextView(getContext());
+                RelativeLayout.LayoutParams tv2Params = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tv2Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                provinceCasi.setLayoutParams(tv2Params);
+                provinceCasi.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnambold));
+                provinceCasi.setTextColor(Color.parseColor("#000000"));
+                provinceCasi.setTextSize(16);
+                provinceCasi.setText(decim.format(selectedProvince.get(i).getTotale_casi())+" casi");
+
+                //third textview
+                TextView provinceCasiPiu = new TextView(getContext());
+                RelativeLayout.LayoutParams tv3Params = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tv3Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                tv3Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+                provinceCasiPiu.setLayoutParams(tv3Params);
+                provinceCasiPiu.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnam));
+
+                provinceCasiPiu.setTextSize(16);
+                int nuoviCasi = selectedProvinceNuovi.get(i).getTotale_casi();
+                if (nuoviCasi > 0){
+                    provinceCasiPiu.setText("+" + decim.format(nuoviCasi));
+                    provinceCasiPiu.setTextColor(Color.RED);
+                } else {
+                    provinceCasiPiu.setText("" + decim.format(nuoviCasi));
+                    provinceCasiPiu.setTextColor(Color.rgb(0,153,51));
+                }
+
+                innerLayout.addView(provinceName);
+                innerLayout.addView(provinceCasi);
+                innerLayout.addView(provinceCasiPiu);
+
+                whiteCard.addView(innerLayout);
+
+                whiteLayout.addView(whiteCard);
+
+                masterLayout.addView(whiteLayout);
             }
-        }
-/*
-        Log.i("DEBUG", "\ncodice_regione: " + selectedRegion.getCodice_regione()+
-                "\ndenominazione_regione: "+selectedRegion.getDenominazione_regione()+
-                "\nricoverati con sintomi: "+selectedRegion.getRicoverati_con_sintomi()+
-                "\nterapia intensiva: "+selectedRegion.getTerapia_intensiva()+
-                "\ntotale_ospedalizzati: "+selectedRegion.getTotale_ospedalizzati()+
-                "\nisolamento_domiciliare: "+selectedRegion.getIsolamento_domiciliare()+
-                "\ntotale_positivi: "+selectedRegion.getTotale_positivi()+
-                "\nvariazione_totale_positivi: "+selectedRegion.getVariazione_totale_positivi()+
-                "\nnuovi_positivi: "+selectedRegion.getNuovi_positivi()+
-                "\ndimessi_guariti: "+selectedRegion.getDimessi_guariti()+
-                "\ndeceduti: "+selectedRegion.getDeceduti()+
-                "\ntotale_casi: "+selectedRegion.getTotale_casi()+
-                "\ntamponi: "+selectedRegion.getTamponi());
-
- */
-        if (dati != null){
-
-            casi_totali_regioni.setText(decim.format(selectedRegion.getTotale_casi()) + " casi");
-            ricoverati_con_sintomi.setText(decim.format(selectedRegion.getRicoverati_con_sintomi()) + "");
-            terapia_intensiva.setText(decim.format(selectedRegion.getTerapia_intensiva()) + "");
-            totale_ospedalizzati.setText(decim.format(selectedRegion.getTotale_ospedalizzati()) + "");
-            isolamento_domiciliare.setText(decim.format(selectedRegion.getIsolamento_domiciliare()) + "");
-            totale_attualmente_positivi.setText(decim.format(selectedRegion.getTotale_positivi()) + "");
-            variazione_totale_positivi.setText("+" + decim.format(selectedRegion.getVariazione_totale_positivi()));
-            dimessi_guariti.setText(decim.format(selectedRegion.getDimessi_guariti()) + "");
-            deceduti.setText(decim.format(selectedRegion.getDeceduti()) + "");
-            tamponi.setText(decim.format(selectedRegion.getTamponi()) + "");
-            casi_totali_regioni_piu.setText("+" + decim.format(selectedRegion.getNuovi_positivi()));
-            regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
+            //casi_totali_regioni.setText(decim.format(selectedRegion.getTotale_casi()) + " casi");
+            //casi_totali_regioni_piu.setText("+" + decim.format(selectedRegion.getNuovi_positivi()));
+            provinceProgressBar.setVisibility(View.GONE);
+            firstLayout.removeView(provinceProgressBar);
             masterLayout.setVisibility(View.VISIBLE);
         } else {
-            regioniProgressBar.setVisibility(View.VISIBLE);
+            provinceProgressBar.setVisibility(View.VISIBLE);
         }
     }
-
+/*
     private void setMoreData(ArrayList<AndamentoRegionale> dati, String regione){
         AndamentoRegionale selectedRegion = null;
         for (AndamentoRegionale ar: dati){
@@ -426,16 +476,18 @@ public class RegioniFragment extends Fragment {
                 deceduti_piu.setTextColor(Color.rgb(0,153,51));
             }
 
-            regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
+            provinceProgressBar.setVisibility(View.GONE);
+            firstLayout.removeView(provinceProgressBar);
             masterLayout.setVisibility(View.VISIBLE);
 
         } else {
-            regioniProgressBar.setVisibility(View.VISIBLE);
+            provinceProgressBar.setVisibility(View.VISIBLE);
 
         }
     }
 
+
+ */
     protected boolean isOnline() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

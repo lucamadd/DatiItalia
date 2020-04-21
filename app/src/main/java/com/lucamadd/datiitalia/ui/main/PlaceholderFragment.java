@@ -1,34 +1,47 @@
 package com.lucamadd.datiitalia.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
+import android.util.MalformedJsonException;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.lucamadd.datiitalia.Helper.AndamentoNazionale;
+import com.lucamadd.datiitalia.Helper.DataHelper;
+import com.lucamadd.datiitalia.Helper.VolleyCallBack;
 import com.lucamadd.datiitalia.R;
+import com.lucamadd.datiitalia.SettingsActivity;
 import com.lucamadd.datiitalia.StartActivity;
 
 import org.json.JSONArray;
@@ -36,6 +49,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.net.InetAddress;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -66,10 +82,26 @@ public class PlaceholderFragment extends Fragment {
     private TextView tamponi_piu = null;
     private PageViewModel pageViewModel;
 
+    private LinearLayout firstLayout = null;
+    private LinearLayout masterLayout = null;
+    private LinearLayout retryLayout = null;
+    private ProgressBar italiaProgressBar = null;
+
+    private DecimalFormat decim = new DecimalFormat("#,###");
+
+    private Button settingsButton = null;
+    private Button retryButton = null;
+
+    private AndamentoNazionale datiNazionali = null;
+    private AndamentoNazionale variazioneDatiNazionali = null;
+
+    private DataHelper data;
+
+
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
+        bundle.putInt("index",index);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -78,11 +110,12 @@ public class PlaceholderFragment extends Fragment {
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getData();
+
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
+
         }
         pageViewModel.setIndex(index);
     }
@@ -92,6 +125,39 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_start, container, false);
+
+        settingsButton = root.findViewById(R.id.settings_button);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), SettingsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        masterLayout = root.findViewById(R.id.master_layout);
+        italiaProgressBar = root.findViewById(R.id.italia_progress_bar);
+        firstLayout = root.findViewById(R.id.first_layout);
+
+        retryLayout = root.findViewById(R.id.retry_layout);
+
+        Button retryButton = root.findViewById(R.id.retry_button);
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                retryLayout.setVisibility(View.GONE);
+                italiaProgressBar.setVisibility(View.VISIBLE);
+                if (isOnline()){
+                    new Connection().execute();
+                } else {
+                    italiaProgressBar.setVisibility(View.GONE);
+                    retryLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        masterLayout.setVisibility(View.GONE);
+
         casi_totali_italia  = root.findViewById(R.id.casitotaliitalia);
         ricoverati_con_sintomi = root.findViewById(R.id.ricoveraticonsintomiitalia);
         terapia_intensiva = root.findViewById(R.id.terapiaintensivaitalia);
@@ -121,166 +187,135 @@ public class PlaceholderFragment extends Fragment {
             }
         });
          */
+
+        data = new DataHelper();
+        if (isOnline()){
+            new Connection().execute();
+
+        } else {
+            italiaProgressBar.setVisibility(View.GONE);
+            retryLayout.setVisibility(View.VISIBLE);
+        }
         return root;
     }
 
-    @SuppressWarnings("deprecation")
-    public void getData(){
-        //final TextView textView = getView().findViewById(R.id.casitotaliitalia);
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url =getResources().getString(R.string.andamento_nazionale_latest);
 
-        // Request a string response from the provided URL.
-        StringRequest jsonRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if (response != null){
-                            Log.e("tag",response);
-                            JsonParser parser = new JsonParser();
-                            JsonArray jArray = (JsonArray) parser.parse(response);
-                            Log.e("first element is",jArray.get(0).toString());
-                            Gson gson = new Gson();
-                            AndamentoNazionale dati = gson.fromJson(jArray.get(0).toString(),
-                                    AndamentoNazionale.class);
-                            if (dati != null) {
-                                setData(dati);
-                            }
-                        }
-                        else {
-                            Toast.makeText(getContext(), "Impossibile connettersi al servizio " +
-                                    "al momento.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                casi_totali_italia.setText("");
-                Toast.makeText(getContext(), "Unable to fetch data: " + error.getMessage(),
-                        Toast.LENGTH_SHORT).show();
+    private class Connection extends AsyncTask<Void, Void, Void>{
 
-            }
-        });
+        @Override
+        protected Void doInBackground(Void... voids) {
+            data.getData();
+            data.getMoreData();
+            return null;
+        }
 
-        // Add the request to the RequestQueue.
-        queue.add(jsonRequest);
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("onPostExecute()","iniziato");
+            datiNazionali = data.getDatiNazionali();
+            setData(datiNazionali);
+            variazioneDatiNazionali = data.getVariazioneDatiNazionali();
+            setMoreData(variazioneDatiNazionali);
+            Log.i("onPostExecute()","terminato");
 
-        RequestQueue queue2 = Volley.newRequestQueue(getContext());
-        String url2 =getResources().getString(R.string.andamento_nazionale);
-
-        // Request a string response from the provided URL.
-        StringRequest jsonRequest2 = new StringRequest(Request.Method.GET, url2,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if (response != null){
-                            JsonParser parser = new JsonParser();
-                            JsonArray jArray = (JsonArray) parser.parse(response);
-                            Log.i("log",response);
-                            Gson gson = new Gson();
-                            /*
-                             public AndamentoNazionale(String data, String stato,int ricoverati_con_sintomi, int terapia_intensiva,
-                              int totale_ospedalizzati, int isolamento_domiciliare,
-                              int totale_positivi, int variazione_totale_positivi,
-                              int nuovi_positivi, int dimessi_guariti, int deceduti,
-                              int totale_casi, int tamponi, String note_it, String note_en){
-                             */
-                            AndamentoNazionale datiNuovi = gson.fromJson(jArray.get(jArray.size()-1)
-                                    .toString(), AndamentoNazionale.class);
-                            AndamentoNazionale datiVecchi = gson.fromJson(jArray.get(jArray.size()-2)
-                                    .toString(), AndamentoNazionale.class);
-                            setMoreData(new AndamentoNazionale(null,null,
-                                    datiNuovi.getRicoverati_con_sintomi() - datiVecchi.getRicoverati_con_sintomi(),
-                                    datiNuovi.getTerapia_intensiva() - datiVecchi.getTerapia_intensiva(), datiNuovi.getTotale_ospedalizzati() - datiVecchi.getTotale_ospedalizzati(),
-                                    datiNuovi.getIsolamento_domiciliare() - datiVecchi.getIsolamento_domiciliare(), datiNuovi.getTotale_positivi() - datiVecchi.getTotale_positivi(),
-                                    0, 0, datiNuovi.getDimessi_guariti() - datiVecchi.getDimessi_guariti(),
-                                    datiNuovi.getDeceduti() - datiVecchi.getDeceduti(),0, datiVecchi.getTamponi() - datiNuovi.getTamponi(), null, null));
-
-                        }
-                        else {
-                            Toast.makeText(getContext(), "Impossibile connettersi al servizio al" +
-                                    " momento.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                casi_totali_italia.setText("");
-                Toast.makeText(getContext(), "Unable to fetch data: " + error.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue2.add(jsonRequest2);
+        }
     }
 
+
     private void setData(AndamentoNazionale dati){
-        casi_totali_italia.setText(dati.getTotale_casi() + " casi");
-        ricoverati_con_sintomi.setText(dati.getRicoverati_con_sintomi() + "");
-        terapia_intensiva.setText(dati.getTerapia_intensiva() + "");
-        totale_ospedalizzati.setText(dati.getTotale_ospedalizzati() + "");
-        isolamento_domiciliare.setText(dati.getIsolamento_domiciliare() + "");
-        totale_attualmente_positivi.setText(dati.getTotale_positivi() + "");
-        variazione_totale_positivi.setText("+" + dati.getVariazione_totale_positivi());
-        dimessi_guariti.setText(dati.getDimessi_guariti() + "");
-        deceduti.setText(dati.getDeceduti() + "");
-        tamponi.setText(dati.getTamponi() + "");
-        casi_totali_italia_piu.setText("+" + dati.getNuovi_positivi());
+        if (dati != null){
+            casi_totali_italia.setText(decim.format(dati.getTotale_casi()) + " casi");
+            ricoverati_con_sintomi.setText(decim.format(dati.getRicoverati_con_sintomi()) + "");
+            terapia_intensiva.setText(decim.format(dati.getTerapia_intensiva()) + "");
+            totale_ospedalizzati.setText(decim.format(dati.getTotale_ospedalizzati()) + "");
+            isolamento_domiciliare.setText(decim.format(dati.getIsolamento_domiciliare()) + "");
+            totale_attualmente_positivi.setText(decim.format(dati.getTotale_positivi()) + "");
+            variazione_totale_positivi.setText("+" + decim.format(dati.getVariazione_totale_positivi()));
+            dimessi_guariti.setText(decim.format(dati.getDimessi_guariti()) + "");
+            deceduti.setText(decim.format(dati.getDeceduti()) + "");
+            tamponi.setText(decim.format(dati.getTamponi()) + "");
+            casi_totali_italia_piu.setText("+" + decim.format(dati.getNuovi_positivi()));
+        } else {
+            italiaProgressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setMoreData(AndamentoNazionale nuovo){
+        if (nuovo != null){
+            int ricoverati_con_sintomi_piu_ = nuovo.getRicoverati_con_sintomi();
+            int terapia_intensiva_piu_ = nuovo.getTerapia_intensiva();
+            int totale_ospedalizzati_piu_ = nuovo.getTotale_ospedalizzati();
+            int isolamento_domiciliare_piu_ = nuovo.getIsolamento_domiciliare();
+            int totale_attualmente_positivi_piu_ = nuovo.getTotale_positivi();
+            int dimessi_guariti_piu_ = nuovo.getDimessi_guariti();
+            int deceduti_piu_ = nuovo.getDeceduti();
 
-        int ricoverati_con_sintomi_piu_ = nuovo.getRicoverati_con_sintomi();
-        int terapia_intensiva_piu_ = nuovo.getTerapia_intensiva();
-        int totale_ospedalizzati_piu_ = nuovo.getTotale_ospedalizzati();
-        int isolamento_domiciliare_piu_ = nuovo.getIsolamento_domiciliare();
-        int totale_attualmente_positivi_piu_ = nuovo.getTotale_positivi();
-        int dimessi_guariti_piu_ = nuovo.getDimessi_guariti();
-        int deceduti_piu_ = nuovo.getDeceduti();
-        int tamponi_piu_ = nuovo.getTamponi();
+            if (ricoverati_con_sintomi_piu_ > 0){
+                ricoverati_con_sintomi_piu.setText("+" + decim.format(ricoverati_con_sintomi_piu_));
+                ricoverati_con_sintomi_piu.setTextColor(Color.RED);
+            } else {
+                ricoverati_con_sintomi_piu.setText(decim.format(ricoverati_con_sintomi_piu_));
+                ricoverati_con_sintomi_piu.setTextColor(Color.rgb(0,153,51));
+            }
+            if (terapia_intensiva_piu_ > 0){
+                terapia_intensiva_piu.setText("+" + decim.format(terapia_intensiva_piu_));
+                terapia_intensiva_piu.setTextColor(Color.RED);
+            } else {
+                terapia_intensiva_piu.setText("" + decim.format(terapia_intensiva_piu_));
+                terapia_intensiva_piu.setTextColor(Color.rgb(0,153,51));
+            }
+            if (totale_ospedalizzati_piu_ > 0){
+                totale_ospedalizzati_piu.setText("+" + decim.format(totale_ospedalizzati_piu_));
+                totale_ospedalizzati_piu.setTextColor(Color.RED);
+            } else {
+                totale_ospedalizzati_piu.setText("" + decim.format(totale_ospedalizzati_piu_));
+                totale_ospedalizzati_piu.setTextColor(Color.rgb(0,153,51));
+            }
+            if (isolamento_domiciliare_piu_ > 0){
+                isolamento_domiciliare_piu.setText("+" + decim.format(isolamento_domiciliare_piu_));
+                isolamento_domiciliare_piu.setTextColor(Color.RED);
+            } else {
+                isolamento_domiciliare_piu.setText("" + decim.format(isolamento_domiciliare_piu_));
+                isolamento_domiciliare_piu.setTextColor(Color.rgb(0,153,51));
+            }
+            if (totale_attualmente_positivi_piu_ > 0){
+                totale_attualmente_positivi_piu.setText("+"  + decim.format(totale_attualmente_positivi_piu_));
+                totale_attualmente_positivi_piu.setTextColor(Color.RED);
+            } else {
+                totale_attualmente_positivi_piu.setText("" + decim.format(totale_attualmente_positivi_piu_));
+                totale_attualmente_positivi_piu.setTextColor(Color.rgb(0,153,51));
+            }
+            if (dimessi_guariti_piu_ > 0){
+                dimessi_guariti_piu.setText("+" + decim.format(dimessi_guariti_piu_));
+                dimessi_guariti_piu.setTextColor(Color.rgb(0,153,51));
+            } else {
+                dimessi_guariti_piu.setText("" + decim.format(dimessi_guariti_piu_));
+                dimessi_guariti_piu.setTextColor(Color.RED);
+            }
+            if (deceduti_piu_ > 0){
+                deceduti_piu.setText("+" + decim.format(deceduti_piu_));
+                deceduti_piu.setTextColor(Color.RED);
+            } else {
+                deceduti_piu.setText("" + decim.format(deceduti_piu_));
+                deceduti_piu.setTextColor(Color.rgb(0,153,51));
+            }
 
-        if (ricoverati_con_sintomi_piu_ > 0){
-            ricoverati_con_sintomi_piu.setText("+" + ricoverati_con_sintomi_piu_);
+            italiaProgressBar.setVisibility(View.GONE);
+            firstLayout.removeView(italiaProgressBar);
+            masterLayout.setVisibility(View.VISIBLE);
+            Log.i("MASTERLAYOUT MADE","VISIBLE");
+
         } else {
-            ricoverati_con_sintomi_piu.setText("" + ricoverati_con_sintomi_piu_);
-        }
-        if (terapia_intensiva_piu_ > 0){
-            terapia_intensiva_piu.setText("+" + terapia_intensiva_piu_);
-        } else {
-            terapia_intensiva_piu.setText("" + terapia_intensiva_piu_);
-        }
-        if (totale_ospedalizzati_piu_ > 0){
-            totale_ospedalizzati_piu.setText("+" + totale_ospedalizzati_piu_);
-        } else {
-            totale_ospedalizzati_piu.setText("" + totale_ospedalizzati_piu_);
-        }
-        if (isolamento_domiciliare_piu_ > 0){
-            isolamento_domiciliare_piu.setText("+" + isolamento_domiciliare_piu_);
-        } else {
-            isolamento_domiciliare_piu.setText("" + isolamento_domiciliare_piu_);
-        }
-        if (totale_attualmente_positivi_piu_ > 0){
-            totale_attualmente_positivi_piu.setText("+"  + totale_attualmente_positivi_piu_);
-        } else {
-            totale_attualmente_positivi_piu.setText("" + totale_attualmente_positivi_piu_);
-        }
-        if (dimessi_guariti_piu_ > 0){
-            dimessi_guariti_piu.setText("+" + dimessi_guariti_piu_);
-        } else {
-            dimessi_guariti_piu.setText("" + dimessi_guariti_piu_);
-        }
-        if (deceduti_piu_ > 0){
-            deceduti_piu.setText("+" + deceduti_piu_);
-        } else {
-            deceduti_piu.setText("" + deceduti_piu_);
-        }
-        if (tamponi_piu_ > 0){
-            tamponi_piu.setText("+" + tamponi_piu_);
-        } else {
-            tamponi_piu.setText("" + tamponi_piu_);
+            italiaProgressBar.setVisibility(View.VISIBLE);
+
         }
     }
 
+    protected boolean isOnline() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

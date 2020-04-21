@@ -4,34 +4,94 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:orientation="vertical"
-        android:background="#ffffff"
-    tools:context=".ui.main.PlaceholderFragment">
+        android:background="#eaebed"
+    tools:context=".ui.main.PlaceholderFragment"
+    android:id="@+id/first_layout">
 
-        <LinearLayout
+        <RelativeLayout
+            android:padding="16dp"
+            android:elevation="16dp"
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginBottom="6dp"
             android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dati Italia"
-                android:textSize="24dp"
+                android:text="Dati Italia (BETA)"
+                android:textSize="28dp"
                 android:fontFamily="@font/bevietnambold"
-                android:textColor="#5E5E5E"
+                android:textColor="#000000"
                 />
 
+            <Button
+                android:id="@+id/settings_button"
+                android:layout_width="28dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/settings"
+                android:layout_alignParentRight="true"
+                android:layout_height="28dp">
+
+            </Button>
 
 
 
+        </RelativeLayout>
 
-        </LinearLayout>
+    <ProgressBar
+        android:id="@+id/italia_progress_bar"
+        android:layout_marginTop="100dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="visible"
+        android:indeterminate="true"
+        android:theme="@style/ProgressBarStyle"
+        android:layout_gravity="center">
+    </ProgressBar>
 
 
+    <LinearLayout
+        android:id="@+id/retry_layout"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/network_icon"
+            android:layout_gravity="center"
+            android:layout_width="28dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/network"
+            android:layout_height="28dp">
+        </Button>
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bevietnambold"
+            android:textColor="#000000"
+            android:text="Impossibile connettersi al momento.">
+        </TextView>
+
+        <Button
+            android:id="@+id/retry_button"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="0dp"
+            android:background="#eaebed"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:fontFamily="@font/bevietnambold"
+            android:text="Riprova"
+            android:layout_height="28dp">
+        </Button>
+    </LinearLayout>
         <ScrollView
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="32dp"
@@ -39,478 +99,538 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="16dp"
+
+
+                <LinearLayout
+                    android:padding="16dp"
+                    android:id="@+id/master_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="172dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_view"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                        android:layout_height="172dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="8dp"
+                        app:cardPreventCornerOverlap="false">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_view"
+                            android:orientation="vertical"
+                            android:padding="16dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:text="Totale casi"
-                                android:textColor="#ffff"
-                                android:textSize="18dp" />
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:text="Totale casi"
+                                    android:textColor="#ffff"
+                                    android:textSize="18dp" />
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/casitotaliitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textColor="#ffff"
+                                    android:layout_marginTop="40dp"
+                                    android:textSize="24dp" />
+
+                                <TextView
+                                    android:id="@+id/casitotaliitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textColor="#ffff"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="40dp"
+                                    android:textSize="24dp" />
+                            </RelativeLayout>
+
 
                         </LinearLayout>
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/casitotaliitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textColor="#ffff"
-                                android:layout_marginTop="40dp"
-                                android:textSize="24dp" />
-
-                            <TextView
-                                android:id="@+id/casitotaliitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textColor="#ffff"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginTop="40dp"
-                                android:textSize="24dp" />
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-                <RelativeLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        android:layout_alignParentLeft="true">
-
-                        <RelativeLayout
-
-                            android:background="@drawable/bg_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:text="Ricoverati con sintomi"
-                                android:textColor="#ffffff"
-                                />
-
-                            <TextView
-                                android:id="@+id/ricoveraticonsintomiitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:textColor="#ffffff"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textSize="18dp"
-                                />
-
-                            <TextView
-                                android:id="@+id/ricoveraticonsintomiitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:textColor="#ffffff"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textSize="16dp"
-                                />
-                        </RelativeLayout>
-
-
-
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentRight="true"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="0dp"
-                            android:background="@drawable/bg_card"
-                            android:padding="8dp">
+                    <RelativeLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textColor="#ffff"
-                                android:text="Terapia intensiva"
-                                />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentLeft="true">
 
-                            <TextView
-                                android:id="@+id/terapiaintensivaitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textSize="18dp"
-                                />
+                            <RelativeLayout
+                                android:background="#ffffff"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="8dp">
 
-                            <TextView
-                                android:id="@+id/terapiaintensivaitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textSize="16dp"
-                                />
-                        </RelativeLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:text="Ricoverati con sintomi"
+                                    android:textColor="#000000"
+                                    />
 
+                                <TextView
+                                    android:id="@+id/ricoveraticonsintomiitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textSize="18dp"
+                                    />
 
-
-                    </androidx.cardview.widget.CardView>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        android:layout_alignParentLeft="true">
-
-                        <RelativeLayout
-
-                            android:background="@drawable/bg_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:text="Totale ospedalizzati"
-                                android:textColor="#ffffff"
-                                />
-
-                            <TextView
-                                android:id="@+id/totaleospedalizzatiitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:textColor="#ffffff"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textSize="18dp"
-                                />
-
-                            <TextView
-                                android:id="@+id/totaleospedalizzatiitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:textColor="#ffffff"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textSize="16dp"
-                                />
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/ricoveraticonsintomiitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textSize="16dp"
+                                    />
+                            </RelativeLayout>
 
 
 
-                    </androidx.cardview.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentRight="true"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentRight="true">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="0dp"
-                            android:background="@drawable/bg_card"
-                            android:padding="8dp">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="0dp"
+                                android:background="#ffffff"
+                                android:padding="8dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textColor="#ffff"
-                                android:text="Isolamento domiciliare"
-                                />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textColor="#000000"
+                                    android:text="Terapia intensiva"
+                                    />
 
-                            <TextView
-                                android:id="@+id/isolamentodomiciliareitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textSize="18dp"
-                                />
+                                <TextView
+                                    android:id="@+id/terapiaintensivaitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textSize="18dp"
+                                    />
 
-                            <TextView
-                                android:id="@+id/isolamentodomiciliareitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textSize="16dp"
-                                />
-                        </RelativeLayout>
-
-
-
-                    </androidx.cardview.widget.CardView>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        android:layout_alignParentLeft="true">
-
-                        <RelativeLayout
-
-                            android:background="@drawable/bg_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:text="Dimessi guariti"
-                                android:textColor="#ffffff"
-                                />
-
-                            <TextView
-                                android:id="@+id/dimessiguaritiitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:textColor="#ffffff"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textSize="18dp"
-                                />
-
-                            <TextView
-                                android:id="@+id/dimessiguaritiitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:textColor="#ffffff"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textSize="16dp"
-                                />
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/terapiaintensivaitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textSize="16dp"
+                                    />
+                            </RelativeLayout>
 
 
 
-                    </androidx.cardview.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentRight="true"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp">
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="0dp"
-                            android:background="@drawable/bg_card"
-                            android:padding="8dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentLeft="true">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textColor="#ffff"
-                                android:text="Deceduti"
-                                />
+                            <RelativeLayout
 
-                            <TextView
-                                android:id="@+id/decedutiitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textSize="18dp"
-                                />
+                                android:background="#ffffff"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="8dp">
 
-                            <TextView
-                                android:id="@+id/decedutiitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textSize="16dp"
-                                />
-                        </RelativeLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:text="Totale ospedalizzati"
+                                    android:textColor="#000000"
+                                    />
 
+                                <TextView
+                                    android:id="@+id/totaleospedalizzatiitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textSize="18dp"
+                                    />
 
-
-                    </androidx.cardview.widget.CardView>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        android:layout_alignParentLeft="true">
-
-                        <RelativeLayout
-
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/bg_card"
-                            android:padding="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:text="Totale attualmente positivi"
-                                android:textColor="#ffffff" />
-
-                            <TextView
-                                android:id="@+id/totaleattualmentepositiviitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textColor="#ffffff"
-                                android:textSize="18dp" />
-
-                            <TextView
-                                android:id="@+id/totaleattualmentepositiviitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentBottom="true"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textColor="#ffffff"
-                                android:textSize="16dp" />
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentRight="true"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="0dp"
-                            android:background="@drawable/bg_card"
-                            android:padding="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textColor="#ffff"
-                                android:text="Tamponi"
-                                />
-
-                            <TextView
-                                android:id="@+id/tamponiitalia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnambold"
-                                android:textSize="18dp"
-                                />
-
-                            <TextView
-                                android:id="@+id/tamponiitaliapiu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:textColor="#ffff"
-                                android:fontFamily="@font/bevietnamregular"
-                                android:textSize="16dp"
-                                />
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/totaleospedalizzatiitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textSize="16dp"
+                                    />
+                            </RelativeLayout>
 
 
 
-                    </androidx.cardview.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
-                </RelativeLayout>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentRight="true">
 
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="0dp"
+                                android:background="#ffffff"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textColor="#000000"
+                                    android:text="Isolamento domiciliare"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/isolamentodomiciliareitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textSize="18dp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/isolamentodomiciliareitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textSize="16dp"
+                                    />
+                            </RelativeLayout>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentLeft="true">
+
+                            <RelativeLayout
+
+                                android:background="#ffffff"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:text="Dimessi guariti"
+                                    android:textColor="#000000"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/dimessiguaritiitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textSize="18dp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/dimessiguaritiitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textSize="16dp"
+                                    />
+                            </RelativeLayout>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentRight="true">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="0dp"
+                                android:background="#ffffff"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textColor="#000000"
+                                    android:text="Deceduti"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/decedutiitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textSize="18dp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/decedutiitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textSize="16dp"
+                                    />
+                            </RelativeLayout>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentLeft="true">
+
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#ffffff"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:text="Totale attualmente positivi"
+                                    android:textColor="#000000" />
+
+                                <TextView
+                                    android:id="@+id/totaleattualmentepositiviitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textColor="#000000"
+                                    android:textSize="18dp" />
+
+                                <TextView
+                                    android:id="@+id/totaleattualmentepositiviitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textColor="#000000"
+                                    android:textSize="16dp" />
+                            </RelativeLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            app:cardCornerRadius="8dp"
+                            android:elevation="8dp"
+                            android:divider="@android:color/transparent"
+                            android:dividerHeight="0.0px"
+                            android:clipToPadding="false"
+                            android:clipChildren="false"
+                            app:cardElevation="10dp"
+                            app:cardPreventCornerOverlap="false"
+                            android:layout_alignParentRight="true">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="0dp"
+                                android:background="#ffffff"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textColor="#000000"
+                                    android:text="Tamponi"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tamponiitalia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnambold"
+                                    android:textSize="18dp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tamponiitaliapiu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:textColor="#000000"
+                                    android:fontFamily="@font/bevietnamregular"
+                                    android:textSize="16dp"
+                                    />
+                            </RelativeLayout>
+
+
+
+                        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
-
         </ScrollView>
-
     </LinearLayout>

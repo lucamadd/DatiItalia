@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="#eaebed"
+tools:context=".ui.main.ProvinceFragment"
+android:id="@+id/province_first_layout">
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:elevation="16dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/spinner_province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/regioni_entries"
+            android:spinnerMode="dropdown"
+            android:scrollbarSize="0dp"
+            android:paddingRight="10dp"
+            android:background="#eaebed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/regione_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginLeft="8sp"
+            android:text="Scegli una regione"
+            android:textSize="28dp"
+            android:fontFamily="@font/bevietnambold"
+            android:textColor="#000000"
+            />
+
+
+
+        <Button
+            android:id="@+id/province_edit_button"
+            android:layout_width="28dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit"
+            android:layout_alignParentRight="true"
+            android:layout_height="28dp">
+
+        </Button>
+
+
+    </RelativeLayout>
+
+<ProgressBar
+    android:id="@+id/province_progress_bar"
+    android:layout_marginTop="100dp"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:visibility="visible"
+    android:indeterminate="true"
+    android:theme="@style/ProgressBarStyle"
+    android:layout_gravity="center">
+</ProgressBar>
+
+
+<LinearLayout
+    android:id="@+id/province_retry_layout"
+    android:layout_gravity="center"
+    android:layout_marginTop="200dp"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/province_network_icon"
+        android:layout_gravity="center"
+        android:layout_width="28dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/network"
+        android:layout_height="28dp">
+    </Button>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bevietnambold"
+        android:textColor="#000000"
+        android:text="Impossibile connettersi al momento.">
+    </TextView>
+
+    <Button
+        android:id="@+id/province_retry_button"
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        android:elevation="0dp"
+        android:background="#eaebed"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:fontFamily="@font/bevietnambold"
+        android:text="Riprova"
+        android:layout_height="28dp">
+    </Button>
+</LinearLayout>
+<ScrollView
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="32dp"
+    android:scrollbarSize="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:padding="16dp"
+            android:id="@+id/province_master_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="172dp"
+                android:elevation="16dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:layout_marginBottom="6dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                app:cardElevation="16dp"
+                app:cardPreventCornerOverlap="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="16dp"
+                    android:background="@drawable/bg_view"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bevietnamregular"
+                            android:text="Totale casi"
+                            android:textColor="#ffff"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/casitotaliprovince"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bevietnambold"
+                            android:textColor="#ffff"
+                            android:layout_marginTop="40dp"
+                            android:textSize="24dp" />
+
+                        <TextView
+                            android:id="@+id/casitotaliprovincepiu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bevietnambold"
+                            android:textColor="#ffff"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="40dp"
+                            android:textSize="24dp" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    app:cardCornerRadius="8dp"
+                    android:elevation="8dp"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="0.0px"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    app:cardElevation="10dp"
+                    app:cardPreventCornerOverlap="false">
+
+                    <RelativeLayout
+                        android:background="#ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bevietnambold"
+                            android:text="Provincia1"
+                            android:textColor="#000000"
+                            />
+
+                        <TextView
+                            android:id="@+id/ricoveraticonsintomiprovince"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:textColor="#000000"
+                            android:text="3299 casi"
+                            android:fontFamily="@font/bevietnambold"
+                            android:textSize="16dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/ricoveraticonsintomiprovincepiu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:text="+34"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/ic_launcher_background"
+                            android:fontFamily="@font/bevietnamregular"
+                            android:textSize="16dp"
+                            />
+                    </RelativeLayout>
+
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

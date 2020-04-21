@@ -1,0 +1,78 @@
+<!--
+  ~ Copyright 2018 The app Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory
+        app:title="Generali"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:key="dark_theme"
+            app:title="Tema scuro"
+            app:enabled="false"
+            app:summary="Disponibile a breve!"/>
+
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:key="notification"
+            app:title="Attiva notifiche"
+            app:summary="Ricevi una notifica quando i dati vengono aggiornati"/>
+
+        <ListPreference
+            app:iconSpaceReserved="false"
+            app:entries="@array/regioni_entries"
+            app:entryValues="@array/regioni_values"
+            app:key="regione"
+            app:title="Regione preferita"
+            app:useSimpleSummaryProvider="true" />
+
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="feedback"
+            app:title="Lascia feedback"
+            app:summary="Invia un feedback allo sviluppatore"/>
+
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="Info">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="info"
+            app:title="Versione dell'applicazione"
+            app:summary="0.5.5b"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="update"
+            app:title="Controlla aggiornamenti"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="info_credits"
+            app:title="Crediti"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
