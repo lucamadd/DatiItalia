@@ -1,21 +1,15 @@
 package com.lucamadd.datiitalia.ui.main;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.AudioAttributes;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.util.JsonReader;
-import android.util.Log;
-import android.util.MalformedJsonException;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +40,6 @@ import com.google.gson.JsonSyntaxException;
 import com.lucamadd.datiitalia.Helper.AndamentoNazionale;
 import com.lucamadd.datiitalia.Helper.AndamentoRegionale;
 import com.lucamadd.datiitalia.Helper.DataHelper;
-import com.lucamadd.datiitalia.Helper.VolleyCallBack;
 import com.lucamadd.datiitalia.R;
 import com.lucamadd.datiitalia.SettingsActivity;
 import com.lucamadd.datiitalia.StartActivity;
@@ -86,7 +79,8 @@ public class RegioniFragment extends Fragment {
     private TextView totale_attualmente_positivi_piu = null;
     private TextView dimessi_guariti_piu = null;
     private TextView deceduti_piu = null;
-    private TextView tamponi_piu = null;
+
+    private TextView data_regioni = null;
     private PageViewModel pageViewModel;
 
     private LinearLayout firstLayout = null;
@@ -169,18 +163,22 @@ public class RegioniFragment extends Fragment {
         });
 
         regioniProgressBar = root.findViewById(R.id.regioni_progress_bar);
+
+        regioniProgressBar.setVisibility(View.VISIBLE);
+
         masterLayout = root.findViewById(R.id.regioni_master_layout);
         firstLayout = root.findViewById(R.id.regioni_first_layout);
         retryLayout = root.findViewById(R.id.regioni_retry_layout);
 
 
-
+        data_regioni = root.findViewById(R.id.data_regioni);
 
         final Vibrator vibe = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
 
         regioneTextView = root.findViewById(R.id.regione_textview);
         regioniEditButton = root.findViewById(R.id.regioni_edit_button);
+        regioniEditButton.setEnabled(false);
         regioniEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,6 +190,10 @@ public class RegioniFragment extends Fragment {
                     masterLayout.setVisibility(View.GONE);
                 } else {
                     if (!regioneTextView.getText().toString().equals("Scegli una regione")){
+                        regioniProgressBar.setVisibility(View.VISIBLE);
+                        regioniEditButton.setEnabled(false);
+                        masterLayout.setVisibility(View.GONE);
+
                         regioneTextView.setVisibility(View.GONE);
                         spinner.setVisibility(View.VISIBLE);
                         spinner.setEnabled(false);
@@ -213,10 +215,15 @@ public class RegioniFragment extends Fragment {
             public void onClick(View view) {
                 retryLayout.setVisibility(View.GONE);
                 regioniProgressBar.setVisibility(View.VISIBLE);
+                regioniEditButton.setEnabled(false);
+                masterLayout.setVisibility(View.GONE);
+
                 if (isOnline()){
                     new Connection().execute();
                 } else {
                     regioniProgressBar.setVisibility(View.GONE);
+                    regioniEditButton.setEnabled(true);
+
                     retryLayout.setVisibility(View.VISIBLE);
                 }
             }
@@ -243,7 +250,6 @@ public class RegioniFragment extends Fragment {
         totale_attualmente_positivi_piu = root.findViewById(R.id.totaleattualmentepositiviregionipiu);
         dimessi_guariti_piu = root.findViewById(R.id.dimessiguaritiregionipiu);
         deceduti_piu = root.findViewById(R.id.decedutiregionipiu);
-        tamponi_piu = root.findViewById(R.id.tamponiregionipiu);
         /*
         final TextView textView = root.findViewById(R.id.section_label);
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -253,21 +259,7 @@ public class RegioniFragment extends Fragment {
             }
         });
          */
-        data = new DataHelper();
 
-        if (selectedRegion[0].equals("")){
-            regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
-            spinner.setVisibility(View.INVISIBLE);
-            regioneTextView.setVisibility(View.VISIBLE);
-        } else {
-            regioneTextView.setText(selectedRegion[0]);
-            spinner.setVisibility(View.INVISIBLE);
-            regioneTextView.setVisibility(View.VISIBLE);
-            tryConnection();
-        }
-
-        tryConnection();
         return root;
     }
 
@@ -287,11 +279,11 @@ public class RegioniFragment extends Fragment {
             variazioneDatiRegionali = data.getVariazioneDatiRegionali();
             setData(datiRegionali,selectedRegion[0]);
             setMoreData(variazioneDatiRegionali,selectedRegion[0]);
+            data_regioni.setText(data.getCurrentDayText());
         }
     }
 
     private void tryConnection(){
-        regioniProgressBar.setVisibility(View.GONE);
         retryLayout.setVisibility(View.GONE);
         //Log.i("SELECTED REGION IS ", selectedRegion[0] + " DDD");
         if (!selectedRegion[0].equals("")){
@@ -301,13 +293,16 @@ public class RegioniFragment extends Fragment {
 
             } else {
                 regioniProgressBar.setVisibility(View.GONE);
+                regioniEditButton.setEnabled(true);
+
                 masterLayout.setVisibility(View.GONE);
                 retryLayout.setVisibility(View.VISIBLE);
 
             }
         } else {
             regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
+            regioniEditButton.setEnabled(true);
+
             spinner.setVisibility(View.INVISIBLE);
             regioneTextView.setVisibility(View.VISIBLE);
         }
@@ -317,12 +312,6 @@ public class RegioniFragment extends Fragment {
 
 
     private void setData(ArrayList<AndamentoRegionale> dati, String regione){
-        AndamentoRegionale selectedRegion = null;
-        for (AndamentoRegionale ar: dati){
-            if (ar.getDenominazione_regione().equals(regione)){
-                selectedRegion = ar;
-            }
-        }
 /*
         Log.i("DEBUG", "\ncodice_regione: " + selectedRegion.getCodice_regione()+
                 "\ndenominazione_regione: "+selectedRegion.getDenominazione_regione()+
@@ -340,7 +329,12 @@ public class RegioniFragment extends Fragment {
 
  */
         if (dati != null){
-
+            AndamentoRegionale selectedRegion = null;
+            for (AndamentoRegionale ar: dati){
+                if (ar.getDenominazione_regione().equals(regione)){
+                    selectedRegion = ar;
+                }
+            }
             casi_totali_regioni.setText(decim.format(selectedRegion.getTotale_casi()) + " casi");
             ricoverati_con_sintomi.setText(decim.format(selectedRegion.getRicoverati_con_sintomi()) + "");
             terapia_intensiva.setText(decim.format(selectedRegion.getTerapia_intensiva()) + "");
@@ -353,21 +347,25 @@ public class RegioniFragment extends Fragment {
             tamponi.setText(decim.format(selectedRegion.getTamponi()) + "");
             casi_totali_regioni_piu.setText("+" + decim.format(selectedRegion.getNuovi_positivi()));
             regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
+            regioniEditButton.setEnabled(true);
+
             masterLayout.setVisibility(View.VISIBLE);
         } else {
             regioniProgressBar.setVisibility(View.VISIBLE);
+            regioniEditButton.setEnabled(false);
+            masterLayout.setVisibility(View.GONE);
+
         }
     }
 
     private void setMoreData(ArrayList<AndamentoRegionale> dati, String regione){
-        AndamentoRegionale selectedRegion = null;
-        for (AndamentoRegionale ar: dati){
-            if (ar.getDenominazione_regione().equals(regione)){
-                selectedRegion = ar;
-            }
-        }
         if (dati != null){
+            AndamentoRegionale selectedRegion = null;
+            for (AndamentoRegionale ar: dati){
+                if (ar.getDenominazione_regione().equals(regione)){
+                    selectedRegion = ar;
+                }
+            }
             int ricoverati_con_sintomi_piu_ = selectedRegion.getRicoverati_con_sintomi();
             int terapia_intensiva_piu_ = selectedRegion.getTerapia_intensiva();
             int totale_ospedalizzati_piu_ = selectedRegion.getTotale_ospedalizzati();
@@ -427,11 +425,15 @@ public class RegioniFragment extends Fragment {
             }
 
             regioniProgressBar.setVisibility(View.GONE);
-            firstLayout.removeView(regioniProgressBar);
+            regioniEditButton.setEnabled(true);
+
             masterLayout.setVisibility(View.VISIBLE);
 
         } else {
             regioniProgressBar.setVisibility(View.VISIBLE);
+            regioniEditButton.setEnabled(false);
+            masterLayout.setVisibility(View.GONE);
+
 
         }
     }
@@ -441,5 +443,34 @@ public class RegioniFragment extends Fragment {
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private boolean isFragmentVisible(Fragment fragment) {
+        Activity activity = fragment.getActivity();
+        View focusedView = fragment.getView().findFocus();
+        return activity != null
+                && focusedView != null
+                && focusedView == activity.getWindow().getDecorView().findFocus();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        data = new DataHelper();
+
+        if (selectedRegion[0].equals("")){
+            regioniProgressBar.setVisibility(View.GONE);
+            regioniEditButton.setEnabled(true);
+
+            spinner.setVisibility(View.INVISIBLE);
+            regioneTextView.setVisibility(View.VISIBLE);
+        } else {
+            regioneTextView.setText(selectedRegion[0]);
+            spinner.setVisibility(View.INVISIBLE);
+            regioneTextView.setVisibility(View.VISIBLE);
+            tryConnection();
+        }
+
+        tryConnection();
     }
 }

@@ -1,11 +1,15 @@
 package com.lucamadd.datiitalia;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.text.style.TypefaceSpan;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +62,25 @@ public class SettingsActivity extends AppCompatActivity {
                     Toast.makeText(getContext(),"Le impostazioni saranno applicate al " +
                             "prossimo riavvio dell'applicazione",Toast.LENGTH_LONG).show();
                     return true;
+                }
+            });
+            findPreference("info_credits").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage(Html.fromHtml("<br><a target=\"_blank\" href=\"https://icons8.com/icons/set/expand-arrow--v1\">Expand Arrow icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/wifi-off\">Wi-Fi off icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/checkmark\">Checkmark icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/available-updates\">Available Updates icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/settings\">Settings icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/italy-map\">Italy Map icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/map-marker\">Map Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/marker\">Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br>"))
+                            .setTitle("Crediti");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                    return false;
                 }
             });
         }

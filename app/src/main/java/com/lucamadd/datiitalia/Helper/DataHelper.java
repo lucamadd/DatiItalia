@@ -21,7 +21,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -32,6 +35,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class DataHelper {
+
+    private String currentDayText;
 
     private static final String URL_ANDAMENTO_NAZIONALE_LATEST = "https://raw.githubusercontent.com/" +
             "pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale-latest.json";
@@ -77,7 +82,10 @@ public class DataHelper {
                         AndamentoNazionale.class);
                 if (dati!=null){
                     setDatiNazionali(dati);
+                    setDay(dati.getData());
                 }
+            } else {
+                setDatiNazionali(null);
             }
         } catch (JsonSyntaxException e) {
             Log.i("ERRORE ","JSON");
@@ -130,7 +138,7 @@ public class DataHelper {
                 }
                 if (datiRegioni != null){
                     setDatiRegionali(datiRegioni);
-
+                    setDay(datiRegioni.get(0).getData());
                 }
             }
         } catch (JsonSyntaxException e) {
@@ -233,6 +241,7 @@ public class DataHelper {
                 }
                 if (datiProvince != null){
                     setDatiProvinciali(datiProvince);
+                    setDay(datiProvinciali.get(0).getData());
 
                 }
             }
@@ -323,6 +332,7 @@ public class DataHelper {
 
 
     private String run(String url) {
+        Log.i("run()","iniziato");
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -335,7 +345,28 @@ public class DataHelper {
         }
     }
 
+    private void setDay(String day_){
+        try {
+            String day = day_.substring(8,10);
+            String month = day_.substring(5,7);
+            String year = day_.substring(0,4);
+            String complete_date = day + "/" + month + "/" + year;
 
+            if (complete_date.length() == 10){
+                currentDayText = "Totale casi (agg. al " + complete_date + ")";
+            } else {
+                DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+                currentDayText = "Totale casi (agg. al " + df.format(new Date()) + ")";
+            }
+        } catch (Exception e){
+            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+            currentDayText = "Totale casi (agg. al " + df.format(new Date()) + ")";
+        }
+    }
+
+    public String getCurrentDayText(){
+        return currentDayText;
+    }
 
 
 }

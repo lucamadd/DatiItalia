@@ -1,5 +1,6 @@
 package com.lucamadd.datiitalia.ui.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -39,7 +40,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.lucamadd.datiitalia.Helper.AndamentoNazionale;
 import com.lucamadd.datiitalia.Helper.DataHelper;
-import com.lucamadd.datiitalia.Helper.VolleyCallBack;
 import com.lucamadd.datiitalia.R;
 import com.lucamadd.datiitalia.SettingsActivity;
 import com.lucamadd.datiitalia.StartActivity;
@@ -79,7 +79,8 @@ public class PlaceholderFragment extends Fragment {
     private TextView totale_attualmente_positivi_piu = null;
     private TextView dimessi_guariti_piu = null;
     private TextView deceduti_piu = null;
-    private TextView tamponi_piu = null;
+
+    private TextView data_italia = null;
     private PageViewModel pageViewModel;
 
     private LinearLayout firstLayout = null;
@@ -177,7 +178,6 @@ public class PlaceholderFragment extends Fragment {
         totale_attualmente_positivi_piu = root.findViewById(R.id.totaleattualmentepositiviitaliapiu);
         dimessi_guariti_piu = root.findViewById(R.id.dimessiguaritiitaliapiu);
         deceduti_piu = root.findViewById(R.id.decedutiitaliapiu);
-        tamponi_piu = root.findViewById(R.id.tamponiitaliapiu);
         /*
         final TextView textView = root.findViewById(R.id.section_label);
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -189,13 +189,8 @@ public class PlaceholderFragment extends Fragment {
          */
 
         data = new DataHelper();
-        if (isOnline()){
-            new Connection().execute();
+        data_italia = root.findViewById(R.id.data_italia);
 
-        } else {
-            italiaProgressBar.setVisibility(View.GONE);
-            retryLayout.setVisibility(View.VISIBLE);
-        }
         return root;
     }
 
@@ -217,6 +212,7 @@ public class PlaceholderFragment extends Fragment {
             setData(datiNazionali);
             variazioneDatiNazionali = data.getVariazioneDatiNazionali();
             setMoreData(variazioneDatiNazionali);
+            data_italia.setText(data.getCurrentDayText());
             Log.i("onPostExecute()","terminato");
 
         }
@@ -317,5 +313,17 @@ public class PlaceholderFragment extends Fragment {
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (isOnline()){
+            new Connection().execute();
+
+        } else {
+            italiaProgressBar.setVisibility(View.GONE);
+            retryLayout.setVisibility(View.VISIBLE);
+        }
     }
 }

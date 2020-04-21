@@ -37,6 +37,7 @@ public class AndamentoNazionale implements Serializable {
         setTotale_positivi(totale_positivi);
         setVariazione_totale_positivi(variazione_totale_positivi);
         setTotale_casi(totale_casi);
+        setData(data);
     }
 
     public void setIsolamento_domiciliare(int isolamento_domiciliare) {
@@ -83,6 +84,10 @@ public class AndamentoNazionale implements Serializable {
         this.variazione_totale_positivi = variazione_totale_positivi;
     }
 
+    public void setData(String data){
+        this.data = data;
+    }
+
     public int getIsolamento_domiciliare() {
         return isolamento_domiciliare;
     }
@@ -125,6 +130,10 @@ public class AndamentoNazionale implements Serializable {
 
     public int getVariazione_totale_positivi() {
         return variazione_totale_positivi;
+    }
+
+    public String getData(){
+        return data;
     }
 
 }

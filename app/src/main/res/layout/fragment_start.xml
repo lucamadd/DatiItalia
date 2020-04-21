@@ -137,10 +137,10 @@
                                 android:orientation="horizontal">
 
                                 <TextView
+                                    android:id="@+id/data_italia"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnamregular"
-                                    android:text="Totale casi"
                                     android:textColor="#ffff"
                                     android:textSize="18dp" />
 
