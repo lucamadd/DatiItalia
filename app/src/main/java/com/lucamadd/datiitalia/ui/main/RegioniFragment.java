@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -175,6 +177,7 @@ public class RegioniFragment extends Fragment {
 
         final Vibrator vibe = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
+        final RelativeLayout hintLayout = root.findViewById(R.id.hint_layout_regioni);
 
         regioneTextView = root.findViewById(R.id.regione_textview);
         regioniEditButton = root.findViewById(R.id.regioni_edit_button);
@@ -183,13 +186,17 @@ public class RegioniFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 vibe.vibrate(20);
+                //se è loading
                 if (regioniEditButton.getBackground().getConstantState() == getResources().getDrawable(R.drawable.edit).getConstantState()){
                     regioniEditButton.setBackground(getResources().getDrawable(R.drawable.ok));
                     spinner.setEnabled(true);
                     spinner.performClick();
                     masterLayout.setVisibility(View.GONE);
+                    hintLayout.setVisibility(View.VISIBLE);
                 } else {
+                    //se è ok
                     if (!regioneTextView.getText().toString().equals("Scegli una regione")){
+                        hintLayout.setVisibility(View.GONE);
                         regioniProgressBar.setVisibility(View.VISIBLE);
                         regioniEditButton.setEnabled(false);
                         masterLayout.setVisibility(View.GONE);
@@ -206,7 +213,6 @@ public class RegioniFragment extends Fragment {
                 }
             }
         });
-
 
 
         retryButton = root.findViewById(R.id.regioni_retry_button);

@@ -1,6 +1,5 @@
 package com.lucamadd.datiitalia.Helper;
 
-import com.lucamadd.datiitalia.SettingsActivity;
 
 import java.io.Serializable;
 

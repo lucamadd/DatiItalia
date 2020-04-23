@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:orientation="vertical"
+android:orientation="vertical" android:animateLayoutChanges="true"
 android:background="#eaebed"
 tools:context=".ui.main.RegioniFragment"
 android:id="@+id/regioni_first_layout">
@@ -65,6 +65,33 @@ android:id="@+id/regioni_first_layout">
     android:layout_gravity="center">
 </ProgressBar>
 
+    <RelativeLayout
+        android:id="@+id/hint_layout_regioni"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_marginTop="30dp"
+        android:layout_height="60dp">
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/arrow">
+
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:textColor="#a8a8a8"
+            android:layout_marginRight="65dp"
+            android:fontFamily="@font/bevietnambold"
+            android:text="Tocca per confermare">
+
+        </TextView>
+    </RelativeLayout>
 
 <LinearLayout
     android:id="@+id/regioni_retry_layout"

@@ -3,11 +3,13 @@ package com.lucamadd.datiitalia.ui.main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.JsonReader;
 import android.util.Log;
 import android.util.MalformedJsonException;
@@ -98,6 +100,9 @@ public class PlaceholderFragment extends Fragment {
 
     private DataHelper data;
 
+    private boolean isDarkThemeEnabled;
+
+
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -110,6 +115,8 @@ public class PlaceholderFragment extends Fragment {
     @Override
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(getContext());
+        isDarkThemeEnabled = prefs.getBoolean("dark_theme",false);
         super.onCreate(savedInstanceState);
 
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
@@ -139,6 +146,9 @@ public class PlaceholderFragment extends Fragment {
         masterLayout = root.findViewById(R.id.master_layout);
         italiaProgressBar = root.findViewById(R.id.italia_progress_bar);
         firstLayout = root.findViewById(R.id.first_layout);
+
+        if (isDarkThemeEnabled)
+            firstLayout.setBackgroundColor(Color.parseColor("#1d1d1d"));
 
         retryLayout = root.findViewById(R.id.retry_layout);
 

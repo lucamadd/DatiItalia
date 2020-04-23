@@ -142,6 +142,8 @@ public class ProvinceFragment extends Fragment {
 
         final Vibrator vibe = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
+        final RelativeLayout hintLayout = root.findViewById(R.id.hint_layout_province);
+
 
         regioneTextView = root.findViewById(R.id.regione_textview);
         provinceEditButton = root.findViewById(R.id.province_edit_button);
@@ -155,8 +157,11 @@ public class ProvinceFragment extends Fragment {
                     spinner.setEnabled(true);
                     spinner.performClick();
                     masterLayout.setVisibility(View.GONE);
+                    hintLayout.setVisibility(View.VISIBLE);
+
                 } else {
                     if (!regioneTextView.getText().toString().equals("Scegli una regione")){
+                        hintLayout.setVisibility(View.GONE);
                         provinceProgressBar.setVisibility(View.VISIBLE);
                         regioneTextView.setVisibility(View.GONE);
                         spinner.setVisibility(View.VISIBLE);

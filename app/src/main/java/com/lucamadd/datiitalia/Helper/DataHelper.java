@@ -1,38 +1,22 @@
 package com.lucamadd.datiitalia.Helper;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.telecom.Call;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
-import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.lucamadd.datiitalia.R;
-import com.lucamadd.datiitalia.StartActivity;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import okhttp3.Callback;
-import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class DataHelper {
 

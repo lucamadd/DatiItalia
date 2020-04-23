@@ -26,15 +26,8 @@
             app:iconSpaceReserved="false"
             app:key="dark_theme"
             app:title="Tema scuro"
-            app:enabled="false"
             app:summary="Disponibile a breve!"/>
 
-        <SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
-            app:key="notification"
-            app:enabled="false"
-            app:title="Attiva notifiche"
-            app:summary="Ricevi una notifica quando i dati vengono aggiornati"/>
 
         <ListPreference
             app:iconSpaceReserved="false"
@@ -53,6 +46,7 @@
 
 
 
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -63,7 +57,7 @@
             app:iconSpaceReserved="false"
             app:key="info"
             app:title="Versione dell'applicazione"
-            app:summary="0.5.6b"/>
+            app:summary="0.6b"/>
 
         <Preference
             app:iconSpaceReserved="false"

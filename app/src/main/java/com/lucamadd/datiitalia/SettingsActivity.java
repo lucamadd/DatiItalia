@@ -2,28 +2,21 @@ package com.lucamadd.datiitalia;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
-import android.text.style.TypefaceSpan;
-import android.text.util.Linkify;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-public class SettingsActivity extends AppCompatActivity {
 
-    public static final String
-            KEY_PREF_EXAMPLE_SWITCH = "regione";
+
+
+public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +68,8 @@ public class SettingsActivity extends AppCompatActivity {
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/settings\">Settings icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/italy-map\">Italy Map icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/map-marker\">Map Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
-                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/marker\">Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br>"))
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/marker\">Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/up\">Up icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br>"))
                             .setTitle("Crediti");
                     AlertDialog dialog = builder.create();
                     dialog.show();
@@ -83,7 +77,12 @@ public class SettingsActivity extends AppCompatActivity {
                     return false;
                 }
             });
+
+
         }
     }
+
+
+
 
 }
