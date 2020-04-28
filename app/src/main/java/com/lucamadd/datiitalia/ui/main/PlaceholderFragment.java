@@ -159,6 +159,17 @@ public class PlaceholderFragment extends Fragment {
         retryLayout = root.findViewById(R.id.retry_layout);
 
         Button retryButton = root.findViewById(R.id.retry_button);
+        Button networkIcon = root.findViewById(R.id.network_icon);
+
+        if (isDarkThemeEnabled){
+            retryButton.setBackgroundColor(Color.parseColor("#292929"));
+            retryButton.setTextColor(Color.parseColor("#a8a8a8"));
+            networkIcon.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+            TextView retry_TV = root.findViewById(R.id.italia_tv_retry);
+            retry_TV.setTextColor(Color.parseColor("#a8a8a8"));
+        } else {
+            networkIcon.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+        }
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -219,6 +219,22 @@ public class RegioniFragment extends Fragment {
 
 
         retryButton = root.findViewById(R.id.regioni_retry_button);
+        if (isDarkThemeEnabled){
+            retryButton.setBackgroundColor(Color.parseColor("#292929"));
+            retryButton.setTextColor(Color.parseColor("#a8a8a8"));
+        }
+        Button retryButton = root.findViewById(R.id.regioni_retry_button);
+        Button networkIcon = root.findViewById(R.id.regioni_network_icon);
+
+        if (isDarkThemeEnabled){
+            retryButton.setBackgroundColor(Color.parseColor("#292929"));
+            retryButton.setTextColor(Color.parseColor("#a8a8a8"));
+            networkIcon.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+            TextView retry_TV = root.findViewById(R.id.regioni_tv_retry);
+            retry_TV.setTextColor(Color.parseColor("#a8a8a8"));
+        } else {
+            networkIcon.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+        }
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

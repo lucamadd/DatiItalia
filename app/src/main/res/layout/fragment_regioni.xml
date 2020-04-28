@@ -111,6 +111,7 @@ android:id="@+id/regioni_first_layout">
     </Button>
 
     <TextView
+        android:id="@+id/regioni_tv_retry"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

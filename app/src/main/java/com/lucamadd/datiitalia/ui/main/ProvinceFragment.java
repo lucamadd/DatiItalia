@@ -3,7 +3,9 @@ package com.lucamadd.datiitalia.ui.main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -71,6 +73,7 @@ public class ProvinceFragment extends Fragment {
 
     private DataHelper data;
 
+    private boolean isDarkThemeEnabled;
 
     public static ProvinceFragment newInstance(int index) {
         ProvinceFragment fragment = new ProvinceFragment();
@@ -83,6 +86,8 @@ public class ProvinceFragment extends Fragment {
     @Override
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(getContext());
+        isDarkThemeEnabled = prefs.getBoolean("dark_theme",false);
         super.onCreate(savedInstanceState);
 
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
@@ -108,11 +113,22 @@ public class ProvinceFragment extends Fragment {
 
         spinner = root.findViewById(R.id.spinner_province);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                getContext(),
-                R.layout.custom_spinner,
-                getResources().getStringArray(R.array.regioni_entries));
-        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        ArrayAdapter<String> adapter;
+        if (isDarkThemeEnabled){
+            adapter = new ArrayAdapter<>(
+                    getContext(),
+                    R.layout.custom_spinner_dark,
+                    getResources().getStringArray(R.array.regioni_entries));
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_dark);
+
+        } else {
+            adapter = new ArrayAdapter<>(
+                    getContext(),
+                    R.layout.custom_spinner,
+                    getResources().getStringArray(R.array.regioni_entries));
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+
+        }
         spinner.setAdapter(adapter);
         spinner.setScrollBarSize(0);
         spinner.setEnabled(false);
@@ -154,6 +170,9 @@ public class ProvinceFragment extends Fragment {
                 vibe.vibrate(20);
                 if (provinceEditButton.getBackground().getConstantState() == getResources().getDrawable(R.drawable.edit).getConstantState()){
                     provinceEditButton.setBackground(getResources().getDrawable(R.drawable.ok));
+                    if (isDarkThemeEnabled)
+                        provinceEditButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+
                     spinner.setEnabled(true);
                     spinner.performClick();
                     masterLayout.setVisibility(View.GONE);
@@ -179,9 +198,29 @@ public class ProvinceFragment extends Fragment {
             }
         });
 
+        if (isDarkThemeEnabled)
+            setDarkTheme(root);
+        else
+            provinceEditButton.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
 
 
         retryButton = root.findViewById(R.id.province_retry_button);
+        if (isDarkThemeEnabled){
+            retryButton.setBackgroundColor(Color.parseColor("#292929"));
+            retryButton.setTextColor(Color.parseColor("#a8a8a8"));
+        }
+        Button retryButton = root.findViewById(R.id.province_retry_button);
+        Button networkIcon = root.findViewById(R.id.province_network_icon);
+
+        if (isDarkThemeEnabled){
+            retryButton.setBackgroundColor(Color.parseColor("#292929"));
+            retryButton.setTextColor(Color.parseColor("#a8a8a8"));
+            networkIcon.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+            TextView retry_TV = root.findViewById(R.id.province_tv_retry);
+            retry_TV.setTextColor(Color.parseColor("#a8a8a8"));
+        } else {
+            networkIcon.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+        }
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -301,92 +340,106 @@ public class ProvinceFragment extends Fragment {
 
             for (int i=0;i<selectedProvince.size();i++){
 
-                cases += selectedProvince.get(i).getTotale_casi();
-                newCases += selectedProvinceNuovi.get(i).getTotale_casi();
+                if (getContext() != null){
+                    cases += selectedProvince.get(i).getTotale_casi();
+                    newCases += selectedProvinceNuovi.get(i).getTotale_casi();
 
-                casi_totali_province.setText(decim.format(cases) + " casi");
-                casi_totali_province_piu.setText("+" + decim.format(newCases));
+                    casi_totali_province.setText(decim.format(cases) + " casi");
+                    casi_totali_province_piu.setText("+" + decim.format(newCases));
 
-                //relativelayout
-                RelativeLayout whiteLayout = new RelativeLayout(getContext());
-                RelativeLayout.LayoutParams whiteParams = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                if (i != selectedProvince.size() - 1)
-                    whiteParams.setMargins(0,20,0,0);
-                else
-                    whiteParams.setMargins(0,20,0,50);
-                whiteLayout.setLayoutParams(whiteParams);
+                    //relativelayout
+                    RelativeLayout whiteLayout = new RelativeLayout(getContext());
+                    RelativeLayout.LayoutParams whiteParams = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    if (i != selectedProvince.size() - 1)
+                        whiteParams.setMargins(0,20,0,0);
+                    else
+                        whiteParams.setMargins(0,20,0,50);
+                    whiteLayout.setLayoutParams(whiteParams);
 
-                //cardview
-                CardView whiteCard = new CardView(getContext());
-                RelativeLayout.LayoutParams whiteCardParams = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, 160);
-                whiteCardParams.setMargins(0,20,0,0);
-                whiteCard.setLayoutParams(whiteCardParams);
-                whiteCard.setRadius(16);
-                whiteCard.setElevation(16);
-                whiteCard.setClipToPadding(false);
-                whiteCard.setClipChildren(false);
-                whiteCard.setCardElevation(20);
-                whiteCard.setPreventCornerOverlap(false);
+                    //cardview
+                    CardView whiteCard = new CardView(getContext());
+                    RelativeLayout.LayoutParams whiteCardParams = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, 160);
+                    whiteCardParams.setMargins(0,20,0,0);
+                    whiteCard.setLayoutParams(whiteCardParams);
+                    whiteCard.setRadius(16);
+                    whiteCard.setElevation(16);
+                    whiteCard.setClipToPadding(false);
+                    whiteCard.setClipChildren(false);
+                    whiteCard.setCardElevation(20);
+                    whiteCard.setPreventCornerOverlap(false);
+                    if (isDarkThemeEnabled){
+                        whiteCard.setCardBackgroundColor(Color.parseColor("#292929"));
+                        //whiteCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+                    } else {
+                        whiteCard.setCardBackgroundColor(Color.parseColor("#ffffff"));
 
-                //relativelayout
-                RelativeLayout innerLayout = new RelativeLayout(getContext());
-                RelativeLayout.LayoutParams innerParams = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                innerLayout.setLayoutParams(innerParams);
-                innerLayout.setPadding(20,16,16,16);
-                innerLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                    }
+                    //relativelayout
+                    RelativeLayout innerLayout = new RelativeLayout(getContext());
+                    RelativeLayout.LayoutParams innerParams = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    innerLayout.setLayoutParams(innerParams);
+                    innerLayout.setPadding(20,16,16,16);
 
-                //first textview
-                TextView provinceName = new TextView(getContext());
-                RelativeLayout.LayoutParams tv1Params = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                provinceName.setLayoutParams(tv1Params);
-                provinceName.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnambold));
-                provinceName.setTextColor(Color.parseColor("#000000"));
-                provinceName.setText(selectedProvince.get(i).getDenominazione_provincia());
+                    //first textview
+                    TextView provinceName = new TextView(getContext());
+                    RelativeLayout.LayoutParams tv1Params = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    provinceName.setLayoutParams(tv1Params);
+                    provinceName.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnambold));
+                    if (isDarkThemeEnabled)
+                        provinceName.setTextColor(Color.parseColor("#a8a8a8"));
+                    else
+                        provinceName.setTextColor(Color.parseColor("#000000"));
+                    provinceName.setText(selectedProvince.get(i).getDenominazione_provincia());
 
-                //second textview
-                TextView provinceCasi = new TextView(getContext());
-                RelativeLayout.LayoutParams tv2Params = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                tv2Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                provinceCasi.setLayoutParams(tv2Params);
-                provinceCasi.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnambold));
-                provinceCasi.setTextColor(Color.parseColor("#000000"));
-                provinceCasi.setTextSize(16);
-                provinceCasi.setText(decim.format(selectedProvince.get(i).getTotale_casi())+" casi");
+                    //second textview
+                    TextView provinceCasi = new TextView(getContext());
+                    RelativeLayout.LayoutParams tv2Params = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    tv2Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    provinceCasi.setLayoutParams(tv2Params);
+                    provinceCasi.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnambold));
+                    if (isDarkThemeEnabled)
+                        provinceCasi.setTextColor(Color.parseColor("#a8a8a8"));
+                    else
+                        provinceCasi.setTextColor(Color.parseColor("#000000"));
 
-                //third textview
-                TextView provinceCasiPiu = new TextView(getContext());
-                RelativeLayout.LayoutParams tv3Params = new RelativeLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                tv3Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                tv3Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    provinceCasi.setTextSize(16);
+                    provinceCasi.setText(decim.format(selectedProvince.get(i).getTotale_casi())+" casi");
 
-                provinceCasiPiu.setLayoutParams(tv3Params);
-                provinceCasiPiu.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnam));
+                    //third textview
+                    TextView provinceCasiPiu = new TextView(getContext());
+                    RelativeLayout.LayoutParams tv3Params = new RelativeLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    tv3Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    tv3Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-                provinceCasiPiu.setTextSize(16);
-                int nuoviCasi = selectedProvinceNuovi.get(i).getTotale_casi();
-                if (nuoviCasi > 0){
-                    provinceCasiPiu.setText("+" + decim.format(nuoviCasi));
-                    provinceCasiPiu.setTextColor(Color.RED);
-                } else {
-                    provinceCasiPiu.setText("" + decim.format(nuoviCasi));
-                    provinceCasiPiu.setTextColor(Color.rgb(0,153,51));
+                    provinceCasiPiu.setLayoutParams(tv3Params);
+                    provinceCasiPiu.setTypeface(ResourcesCompat.getFont(getContext(),R.font.bevietnam));
+
+                    provinceCasiPiu.setTextSize(16);
+                    int nuoviCasi = selectedProvinceNuovi.get(i).getTotale_casi();
+                    if (nuoviCasi > 0){
+                        provinceCasiPiu.setText("+" + decim.format(nuoviCasi));
+                        provinceCasiPiu.setTextColor(Color.RED);
+                    } else {
+                        provinceCasiPiu.setText("" + decim.format(nuoviCasi));
+                        provinceCasiPiu.setTextColor(Color.rgb(0,153,51));
+                    }
+
+                    innerLayout.addView(provinceName);
+                    innerLayout.addView(provinceCasi);
+                    innerLayout.addView(provinceCasiPiu);
+
+                    whiteCard.addView(innerLayout);
+
+                    whiteLayout.addView(whiteCard);
+
+                    masterLayout.addView(whiteLayout);
                 }
-
-                innerLayout.addView(provinceName);
-                innerLayout.addView(provinceCasi);
-                innerLayout.addView(provinceCasiPiu);
-
-                whiteCard.addView(innerLayout);
-
-                whiteLayout.addView(whiteCard);
-
-                masterLayout.addView(whiteLayout);
             }
             provinceProgressBar.setVisibility(View.GONE);
             provinceEditButton.setEnabled(true);
@@ -433,5 +486,15 @@ public class ProvinceFragment extends Fragment {
         }
 
         tryConnection();
+    }
+
+    private void setDarkTheme(View root){
+        firstLayout.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        provinceEditButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+
+        spinner.setBackgroundColor(Color.parseColor("#1d1d1d"));
+
+        regioneTextView.setTextColor(Color.parseColor("#a8a8a8"));
+
     }
 }
