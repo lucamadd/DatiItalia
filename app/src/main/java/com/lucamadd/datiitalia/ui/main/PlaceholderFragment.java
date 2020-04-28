@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -148,7 +152,9 @@ public class PlaceholderFragment extends Fragment {
         firstLayout = root.findViewById(R.id.first_layout);
 
         if (isDarkThemeEnabled)
-            firstLayout.setBackgroundColor(Color.parseColor("#1d1d1d"));
+            setDarkTheme(root);
+        else
+            settingsButton.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
 
         retryLayout = root.findViewById(R.id.retry_layout);
 
@@ -335,5 +341,100 @@ public class PlaceholderFragment extends Fragment {
             italiaProgressBar.setVisibility(View.GONE);
             retryLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setDarkTheme(View root){
+        firstLayout.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        Button settingsButton = root.findViewById(R.id.settings_button);
+        settingsButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+        TextView italiaTVTitle = root.findViewById(R.id.italia_tv_title);
+        italiaTVTitle.setTextColor(Color.parseColor("#a8a8a8"));
+        CardView italia_rl1 = root.findViewById(R.id.italia_rl1);
+        italia_rl1.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        CardView italia_rl2 = root.findViewById(R.id.italia_rl2);
+        italia_rl2.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        CardView italia_rl3 = root.findViewById(R.id.italia_rl3);
+        italia_rl3.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView italia_rl4 = root.findViewById(R.id.italia_rl4);
+        italia_rl4.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView italia_rl5 = root.findViewById(R.id.italia_rl5);
+        italia_rl5.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView italia_rl6 = root.findViewById(R.id.italia_rl6);
+        italia_rl6.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView italia_rl7 = root.findViewById(R.id.italia_rl7);
+        italia_rl7.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView italia_rl8 = root.findViewById(R.id.italia_rl8);
+        italia_rl8.setCardBackgroundColor(Color.parseColor("#292929"));
+        italia_rl8.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        TextView ricoveratiConSintomi1 = root.findViewById(R.id.ricoveraticonsintomiitalia_text);
+        ricoveratiConSintomi1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView ricoveratiConSintomi2 = root.findViewById(R.id.ricoveraticonsintomiitalia);
+        ricoveratiConSintomi2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView terapiaIntensiva1 = root.findViewById(R.id.terapiaintensivaitalia_text);
+        terapiaIntensiva1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView terapiaIntensiva2 = root.findViewById(R.id.terapiaintensivaitalia);
+        terapiaIntensiva2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleOspedalizzati1 = root.findViewById(R.id.totaleospedalizzatiitalia_text);
+        totaleOspedalizzati1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleOspedalizzati2 = root.findViewById(R.id.totaleospedalizzatiitalia);
+        totaleOspedalizzati2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView isolamentoDomiciliare1 = root.findViewById(R.id.isolamentodomiciliareitalia_text);
+        isolamentoDomiciliare1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView isolamentoDomiciliare2 = root.findViewById(R.id.isolamentodomiciliareitalia);
+        isolamentoDomiciliare2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView dimessiGuariti1 = root.findViewById(R.id.dimessiguaritiitalia_text);
+        dimessiGuariti1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView dimessiGuariti2 = root.findViewById(R.id.dimessiguaritiitalia);
+        dimessiGuariti2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView deceduti1 = root.findViewById(R.id.decedutiitalia_text);
+        deceduti1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView deceduti2 = root.findViewById(R.id.decedutiitalia);
+        deceduti2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleAttualmentePositivi1 = root.findViewById(R.id.totaleattualmentepositiviitalia_text);
+        totaleAttualmentePositivi1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleAttualmentePositivi2 = root.findViewById(R.id.totaleattualmentepositiviitalia);
+        totaleAttualmentePositivi2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView tamponi1 = root.findViewById(R.id.tamponiitalia_text);
+        tamponi1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView tamponi2 = root.findViewById(R.id.tamponiitalia);
+        tamponi2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        /*
+        TextView italiaTVDataItalia = root.findViewById(R.id.data_italia);
+        italiaTVDataItalia.setTextColor(Color.parseColor("#a8a8a8"));
+        TextView italiaTVCasiTotaliItalia = root.findViewById(R.id.casitotaliitalia);
+        italiaTVCasiTotaliItalia.setTextColor(Color.parseColor("#a8a8a8"));
+        TextView italiaTVCasiTotaliItaliaPiu = root.findViewById(R.id.casitotaliitaliapiu);
+        italiaTVCasiTotaliItaliaPiu.setTextColor(Color.parseColor("#a8a8a8"));
+
+         */
     }
 }

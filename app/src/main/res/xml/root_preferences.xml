@@ -25,8 +25,7 @@
         <SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             app:key="dark_theme"
-            app:title="Tema scuro"
-            app:summary="Disponibile a breve!"/>
+            app:title="Tema scuro"/>
 
 
         <ListPreference
@@ -39,8 +38,7 @@
 
         <Preference
             app:iconSpaceReserved="false"
-            app:key="update"
-            app:enabled="false"
+            app:key="check_updates"
             app:title="Controlla aggiornamenti"/>
 
 
@@ -57,7 +55,7 @@
             app:iconSpaceReserved="false"
             app:key="info"
             app:title="Versione dell'applicazione"
-            app:summary="0.6b"/>
+            app:summary="0.7b"/>
 
         <Preference
             app:iconSpaceReserved="false"

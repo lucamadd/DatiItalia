@@ -225,6 +225,7 @@ android:id="@+id/regioni_first_layout">
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl1"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -232,18 +233,20 @@ android:id="@+id/regioni_first_layout">
                     android:divider="@android:color/transparent"
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
+                    android:background="#ffffff"
+
                     android:clipChildren="false"
                     app:cardElevation="10dp"
                     app:cardPreventCornerOverlap="false"
                     android:layout_alignParentLeft="true">
 
                     <RelativeLayout
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/ricoveraticonsintomiregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"
@@ -278,6 +281,7 @@ android:id="@+id/regioni_first_layout">
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl2"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -285,6 +289,7 @@ android:id="@+id/regioni_first_layout">
                     android:divider="@android:color/transparent"
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
+                    android:background="#ffffff"
                     android:clipChildren="false"
                     app:cardElevation="10dp"
                     app:cardPreventCornerOverlap="false"
@@ -294,10 +299,10 @@ android:id="@+id/regioni_first_layout">
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="0dp"
-                        android:background="#ffffff"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/terapiaintensivaregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"
@@ -339,6 +344,7 @@ android:id="@+id/regioni_first_layout">
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl3"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -348,17 +354,18 @@ android:id="@+id/regioni_first_layout">
                     android:clipToPadding="false"
                     android:clipChildren="false"
                     app:cardElevation="10dp"
+                    android:background="#ffffff"
                     app:cardPreventCornerOverlap="false"
                     android:layout_alignParentLeft="true">
 
                     <RelativeLayout
 
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/totaleospedalizzatiregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"
@@ -393,6 +400,7 @@ android:id="@+id/regioni_first_layout">
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl4"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -402,6 +410,7 @@ android:id="@+id/regioni_first_layout">
                     android:clipToPadding="false"
                     android:clipChildren="false"
                     app:cardElevation="10dp"
+                    android:background="#ffffff"
                     app:cardPreventCornerOverlap="false"
                     android:layout_alignParentRight="true">
 
@@ -409,10 +418,10 @@ android:id="@+id/regioni_first_layout">
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="0dp"
-                        android:background="#ffffff"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/isolamentodomiciliareregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"
@@ -455,6 +464,7 @@ android:id="@+id/regioni_first_layout">
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl5"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -462,6 +472,7 @@ android:id="@+id/regioni_first_layout">
                     android:divider="@android:color/transparent"
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
+                    android:background="#ffffff"
                     android:clipChildren="false"
                     app:cardElevation="10dp"
                     app:cardPreventCornerOverlap="false"
@@ -469,12 +480,12 @@ android:id="@+id/regioni_first_layout">
 
                     <RelativeLayout
 
-                        android:background="#ffffff"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/dimessiguaritiregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"
@@ -509,6 +520,7 @@ android:id="@+id/regioni_first_layout">
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl6"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -517,6 +529,8 @@ android:id="@+id/regioni_first_layout">
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
                     android:clipChildren="false"
+                    android:background="#ffffff"
+
                     app:cardElevation="10dp"
                     app:cardPreventCornerOverlap="false"
                     android:layout_alignParentRight="true">
@@ -525,10 +539,10 @@ android:id="@+id/regioni_first_layout">
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="0dp"
-                        android:background="#ffffff"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/decedutiregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"
@@ -571,6 +585,7 @@ android:id="@+id/regioni_first_layout">
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl7"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -580,6 +595,8 @@ android:id="@+id/regioni_first_layout">
                     android:clipToPadding="false"
                     android:clipChildren="false"
                     app:cardElevation="10dp"
+                    android:background="#ffffff"
+
                     app:cardPreventCornerOverlap="false"
                     android:layout_alignParentLeft="true">
 
@@ -587,10 +604,10 @@ android:id="@+id/regioni_first_layout">
 
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#ffffff"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/totaleattualmentepositiviregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"
@@ -619,6 +636,7 @@ android:id="@+id/regioni_first_layout">
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/regioni_rl8"
                     android:layout_width="160dp"
                     android:layout_height="100dp"
                     app:cardCornerRadius="8dp"
@@ -626,6 +644,8 @@ android:id="@+id/regioni_first_layout">
                     android:divider="@android:color/transparent"
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
+                    android:background="#ffffff"
+
                     android:clipChildren="false"
                     app:cardElevation="10dp"
                     app:cardPreventCornerOverlap="false"
@@ -635,10 +655,10 @@ android:id="@+id/regioni_first_layout">
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="0dp"
-                        android:background="#ffffff"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/tamponiregioni_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnambold"

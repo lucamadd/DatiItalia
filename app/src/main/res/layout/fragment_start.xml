@@ -18,9 +18,10 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/italia_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dati Italia (BETA)"
+                android:text="Dati Italia"
                 android:textSize="28dp"
                 android:fontFamily="@font/bevietnambold"
                 android:textColor="#000000"
@@ -70,6 +71,7 @@
         </Button>
 
         <TextView
+            android:id="@+id/italia_tv_retry"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -184,9 +186,12 @@
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl1"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
+                            android:backgroundTint="#ffffff"
+                            android:background="#ffffff"
                             android:elevation="8dp"
                             android:divider="@android:color/transparent"
                             android:dividerHeight="0.0px"
@@ -197,12 +202,12 @@
                             android:layout_alignParentLeft="true">
 
                             <RelativeLayout
-                                android:background="#ffffff"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/ricoveraticonsintomiitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"
@@ -237,6 +242,9 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl2"
+                            android:background="#ffffff"
+                            android:backgroundTint="#ffffff"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
@@ -253,10 +261,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="0dp"
-                                android:background="#ffffff"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/terapiaintensivaitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"
@@ -298,6 +306,9 @@
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl3"
+                            android:background="#ffffff"
+                            android:backgroundTint="#ffffff"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
@@ -311,13 +322,12 @@
                             android:layout_alignParentLeft="true">
 
                             <RelativeLayout
-
-                                android:background="#ffffff"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/totaleospedalizzatiitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"
@@ -352,10 +362,13 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl4"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
                             android:elevation="8dp"
+                            android:background="#ffffff"
+                            android:backgroundTint="#ffffff"
                             android:divider="@android:color/transparent"
                             android:dividerHeight="0.0px"
                             android:clipToPadding="false"
@@ -368,10 +381,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="0dp"
-                                android:background="#ffffff"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/isolamentodomiciliareitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"
@@ -414,6 +427,9 @@
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl5"
+                            android:background="#ffffff"
+                            android:backgroundTint="#ffffff"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
@@ -427,13 +443,12 @@
                             android:layout_alignParentLeft="true">
 
                             <RelativeLayout
-
-                                android:background="#ffffff"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/dimessiguaritiitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"
@@ -468,6 +483,9 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl6"
+                            android:background="#ffffff"
+                            android:backgroundTint="#ffffff"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
@@ -484,10 +502,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="0dp"
-                                android:background="#ffffff"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/decedutiitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"
@@ -530,6 +548,9 @@
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl7"
+                            android:background="#ffffff"
+                            android:backgroundTint="#ffffff"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
@@ -543,13 +564,12 @@
                             android:layout_alignParentLeft="true">
 
                             <RelativeLayout
-
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#ffffff"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/totaleattualmentepositiviitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"
@@ -578,6 +598,9 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/italia_rl8"
+                            android:background="#ffffff"
+                            android:backgroundTint="#ffffff"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             app:cardCornerRadius="8dp"
@@ -594,10 +617,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="0dp"
-                                android:background="#ffffff"
                                 android:padding="8dp">
 
                                 <TextView
+                                    android:id="@+id/tamponiitalia_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/bevietnambold"

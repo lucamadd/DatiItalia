@@ -3,8 +3,9 @@ package com.lucamadd.datiitalia.ui.main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
+import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -21,40 +22,18 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.lucamadd.datiitalia.Helper.AndamentoNazionale;
 import com.lucamadd.datiitalia.Helper.AndamentoRegionale;
 import com.lucamadd.datiitalia.Helper.DataHelper;
 import com.lucamadd.datiitalia.R;
-import com.lucamadd.datiitalia.SettingsActivity;
-import com.lucamadd.datiitalia.StartActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.net.InetAddress;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -101,8 +80,10 @@ public class RegioniFragment extends Fragment {
     private final String[] selectedRegion = {""};
     private TextView regioneTextView = null;
     private Spinner spinner = null;
+    private TextView spinnerTextView = null;
 
     private DataHelper data;
+    private boolean isDarkThemeEnabled;
 
 
     public static RegioniFragment newInstance(int index) {
@@ -116,6 +97,8 @@ public class RegioniFragment extends Fragment {
     @Override
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(getContext());
+        isDarkThemeEnabled = prefs.getBoolean("dark_theme",false);
         super.onCreate(savedInstanceState);
 
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
@@ -142,11 +125,22 @@ public class RegioniFragment extends Fragment {
 
         spinner = root.findViewById(R.id.spinner_regioni);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                getContext(),
-                R.layout.custom_spinner,
-                getResources().getStringArray(R.array.regioni_entries));
-        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        ArrayAdapter<String> adapter;
+        if (isDarkThemeEnabled){
+             adapter = new ArrayAdapter<>(
+                    getContext(),
+                    R.layout.custom_spinner_dark,
+                    getResources().getStringArray(R.array.regioni_entries));
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_dark);
+
+        } else {
+            adapter = new ArrayAdapter<>(
+                    getContext(),
+                    R.layout.custom_spinner,
+                    getResources().getStringArray(R.array.regioni_entries));
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+
+        }
         spinner.setAdapter(adapter);
         spinner.setScrollBarSize(0);
         spinner.setEnabled(false);
@@ -163,6 +157,8 @@ public class RegioniFragment extends Fragment {
 
             }
         });
+
+
 
         regioniProgressBar = root.findViewById(R.id.regioni_progress_bar);
 
@@ -189,6 +185,8 @@ public class RegioniFragment extends Fragment {
                 //se è loading
                 if (regioniEditButton.getBackground().getConstantState() == getResources().getDrawable(R.drawable.edit).getConstantState()){
                     regioniEditButton.setBackground(getResources().getDrawable(R.drawable.ok));
+                    if (isDarkThemeEnabled)
+                        regioniEditButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
                     spinner.setEnabled(true);
                     spinner.performClick();
                     masterLayout.setVisibility(View.GONE);
@@ -213,6 +211,11 @@ public class RegioniFragment extends Fragment {
                 }
             }
         });
+
+        if (isDarkThemeEnabled)
+            setDarkTheme(root);
+        else
+            regioniEditButton.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
 
 
         retryButton = root.findViewById(R.id.regioni_retry_button);
@@ -478,5 +481,116 @@ public class RegioniFragment extends Fragment {
         }
 
         tryConnection();
+    }
+    private void setDarkTheme(View root){
+        firstLayout.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        regioniEditButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+        //TextView italiaTVTitle = root.findViewById(R.id.italia_tv_title);
+        //italiaTVTitle.setTextColor(Color.parseColor("#a8a8a8"));
+        CardView regioni_rl1 = root.findViewById(R.id.regioni_rl1);
+        regioni_rl1.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        CardView regioni_rl2 = root.findViewById(R.id.regioni_rl2);
+        regioni_rl2.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        CardView regioni_rl3 = root.findViewById(R.id.regioni_rl3);
+        regioni_rl3.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView regioni_rl4 = root.findViewById(R.id.regioni_rl4);
+        regioni_rl4.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView regioni_rl5 = root.findViewById(R.id.regioni_rl5);
+        regioni_rl5.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView regioni_rl6 = root.findViewById(R.id.regioni_rl6);
+        regioni_rl6.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView regioni_rl7 = root.findViewById(R.id.regioni_rl7);
+        regioni_rl7.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        CardView regioni_rl8 = root.findViewById(R.id.regioni_rl8);
+        regioni_rl8.setCardBackgroundColor(Color.parseColor("#292929"));
+        regioni_rl8.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+
+        TextView ricoveratiConSintomi1 = root.findViewById(R.id.ricoveraticonsintomiregioni_text);
+        ricoveratiConSintomi1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView ricoveratiConSintomi2 = root.findViewById(R.id.ricoveraticonsintomiregioni);
+        ricoveratiConSintomi2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView terapiaIntensiva1 = root.findViewById(R.id.terapiaintensivaregioni_text);
+        terapiaIntensiva1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView terapiaIntensiva2 = root.findViewById(R.id.terapiaintensivaregioni);
+        terapiaIntensiva2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleOspedalizzati1 = root.findViewById(R.id.totaleospedalizzatiregioni_text);
+        totaleOspedalizzati1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleOspedalizzati2 = root.findViewById(R.id.totaleospedalizzatiregioni);
+        totaleOspedalizzati2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView isolamentoDomiciliare1 = root.findViewById(R.id.isolamentodomiciliareregioni_text);
+        isolamentoDomiciliare1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView isolamentoDomiciliare2 = root.findViewById(R.id.isolamentodomiciliareregioni);
+        isolamentoDomiciliare2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView dimessiGuariti1 = root.findViewById(R.id.dimessiguaritiregioni_text);
+        dimessiGuariti1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView dimessiGuariti2 = root.findViewById(R.id.dimessiguaritiregioni);
+        dimessiGuariti2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView deceduti1 = root.findViewById(R.id.decedutiregioni_text);
+        deceduti1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView deceduti2 = root.findViewById(R.id.decedutiregioni);
+        deceduti2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleAttualmentePositivi1 = root.findViewById(R.id.totaleattualmentepositiviregioni_text);
+        totaleAttualmentePositivi1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView totaleAttualmentePositivi2 = root.findViewById(R.id.totaleattualmentepositiviregioni);
+        totaleAttualmentePositivi2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView tamponi1 = root.findViewById(R.id.tamponiregioni_text);
+        tamponi1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        TextView tamponi2 = root.findViewById(R.id.tamponiregioni);
+        tamponi2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        spinner.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        // inflate the layout
+        View myLayout = LayoutInflater.from(getContext()).inflate(R.layout.custom_spinner_dropdown,null);
+        View myLayout2 = LayoutInflater.from(getContext()).inflate(R.layout.custom_spinner,null);
+
+        // load the text view
+        spinnerTextView =  myLayout.findViewById(R.id.text1);
+        spinnerTextView.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        spinnerTextView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1d1d1d")));
+        spinnerTextView.setTextColor(Color.parseColor("#a8a8a8"));
+        // load the text view
+        TextView spinnerTextView2 =  myLayout2.findViewById(R.id.custom_spinner);
+        spinnerTextView2.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        spinnerTextView2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1d1d1d")));
+        spinnerTextView2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        regioneTextView.setTextColor(Color.parseColor("#a8a8a8"));
+
+        /*
+        TextView italiaTVDataItalia = root.findViewById(R.id.data_italia);
+        italiaTVDataItalia.setTextColor(Color.parseColor("#a8a8a8"));
+        TextView italiaTVCasiTotaliItalia = root.findViewById(R.id.casitotaliitalia);
+        italiaTVCasiTotaliItalia.setTextColor(Color.parseColor("#a8a8a8"));
+        TextView italiaTVCasiTotaliItaliaPiu = root.findViewById(R.id.casitotaliitaliapiu);
+        italiaTVCasiTotaliItaliaPiu.setTextColor(Color.parseColor("#a8a8a8"));
+
+         */
     }
 }

@@ -145,7 +145,7 @@ public class ProvinceFragment extends Fragment {
         final RelativeLayout hintLayout = root.findViewById(R.id.hint_layout_province);
 
 
-        regioneTextView = root.findViewById(R.id.regione_textview);
+        regioneTextView = root.findViewById(R.id.province_textview);
         provinceEditButton = root.findViewById(R.id.province_edit_button);
         provinceEditButton.setEnabled(false);
         provinceEditButton.setOnClickListener(new View.OnClickListener() {

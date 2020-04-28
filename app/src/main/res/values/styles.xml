@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:textViewStyle" > @style/RobotoTextViewStyle </item>
+
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
@@ -28,10 +29,25 @@
         <item name="android:windowNoTitle">true</item>
 
     </style>
+    <style name="SettingsDarkAppTheme" parent="Theme.AppCompat.DayNight">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
+        <item name="colorPrimary">#1d1d1d</item>
+        <item name="colorPrimaryDark">#1d1d1d</item>
+        <item name="android:backgroundTint">#1d1d1d</item>
+        <item name="colorAccent">@color/ic_launcher_background</item>
+        <item name="android:textViewStyle" > @style/RobotoDarkTextViewStyle </item>
+        <item name="android:statusBarColor">#1d1d1d</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
         <item name="android:textViewStyle" > @style/RobotoTextViewStyle </item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -60,10 +76,14 @@
     <style name= "RobotoTextViewStyle" parent= "android:Widget.TextView" >
         <item name="android:fontFamily">@font/bevietnambold</item>
     </style>
+    <style name= "RobotoDarkTextViewStyle" parent= "android:Widget.TextView" >
+        <item name="android:fontFamily">@font/bevietnambold</item>
+        <item name="android:textColor">#a8a8a8</item>
+        <item name="android:subtitleTextColor">#a8a8a8
+        </item>
+    </style>
 
-    <style name= "SettingsActionBarStyle">
-        <item name="android:padding">8dp</item>
-        <item name="android:layout_marginLeft">-8dp</item>
+    <style name= "SettingsActionBarStyle" >
     </style>
 
     <style name="SpinnerTheme">

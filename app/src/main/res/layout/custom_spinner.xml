@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
+    android:id="@+id/custom_spinner"
     style="?attr/spinnerDropDownItemStyle"
     android:singleLine="true"
     android:layout_width="match_parent"
@@ -8,8 +8,8 @@
     android:elevation="0dp"
     android:ellipsize="marquee"
     android:textSize="28dp"
-    android:fontFamily="@font/bevietnambold"
     android:textColor="#000000"
+    android:fontFamily="@font/bevietnambold"
     android:backgroundTint="#000000"/>
 
     <!--
