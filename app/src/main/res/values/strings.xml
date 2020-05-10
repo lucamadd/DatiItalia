@@ -4,6 +4,7 @@
     <string name="tab_text_1">Nazionale</string>
     <string name="tab_text_2">Regioni</string>
     <string name="tab_text_3">Province</string>
+    <string name="tab_text_4">Andamento</string>
 
 
     <string name="title_activity_settings">Settings</string>

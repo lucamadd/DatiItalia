@@ -14,7 +14,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-
+    <!--app:tabInlineLabel="true"-->
 
 
         <com.google.android.material.tabs.TabLayout
@@ -23,12 +23,13 @@
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             app:tabMaxWidth="200dp"
+            app:tabGravity="center"
             android:elevation="16dp"
-            app:tabInlineLabel="true"
             app:tabIndicatorFullWidth="false"
             app:tabTextAppearance="@style/TabLayoutStyle"
             app:tabIndicatorColor="#ffffff"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

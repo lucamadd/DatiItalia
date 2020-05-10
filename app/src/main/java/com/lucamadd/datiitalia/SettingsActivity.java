@@ -108,7 +108,8 @@ public class SettingsActivity extends AppCompatActivity {
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/italy-map\">Italy Map icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/map-marker\">Map Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>\n" +
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/marker\">Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
-                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/up\">Up icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br>"))
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/up\">Up icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
+                            "        <a target=\"_blank\" href=\"https://icons8.it/icons/set/combo-chart\">Grafico combinato icon</a> icon by <a target=\"_blank\" href=\"https://icons8.it\">Icons8</a><br><br>"))
                             .setTitle("Crediti");
                     AlertDialog dialog = builder.create();
                     dialog.show();
