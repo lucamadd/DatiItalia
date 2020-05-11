@@ -52,6 +52,8 @@ public class DataHelper {
     private ArrayList<AndamentoProvinciale> datiProvinciali = null;
     private ArrayList<AndamentoProvinciale> variazioneDatiProvinciali = null;
 
+    private ArrayList<AndamentoNazionale> graphData = null;
+
 
     @SuppressWarnings("deprecation")
     public void getData(){
@@ -103,6 +105,26 @@ public class DataHelper {
             Log.i("ERRORE ","JSON");
         }
         Log.i("getMoreData()","terminato");
+
+    }
+
+    public void getAllData(){
+        try {
+            String httpResponse = run(URL_ANDAMENTO_NAZIONALE);
+            if (httpResponse != null){
+                JsonParser parser = new JsonParser();
+                JsonArray jArray = (JsonArray) parser.parse(httpResponse);
+                Gson gson = new Gson();
+                ArrayList<AndamentoNazionale> dati = new ArrayList<>();
+                for (int i=0;i<jArray.size();i++){
+                    dati.add(gson.fromJson(jArray.get(i)
+                            .toString(), AndamentoNazionale.class));
+                }
+                graphData = dati;
+                }
+        } catch(JsonSyntaxException e){
+            Log.i("ERRORE ","JSON");
+        }
 
     }
 
@@ -303,6 +325,8 @@ public class DataHelper {
     public ArrayList<AndamentoProvinciale> getVariazioneDatiProvinciali() {
         return variazioneDatiProvinciali;
     }
+
+    public ArrayList<AndamentoNazionale> getGraphData() { return graphData; }
 
     public void setDatiNazionali(AndamentoNazionale dati) {
         this.datiNazionali = dati;
