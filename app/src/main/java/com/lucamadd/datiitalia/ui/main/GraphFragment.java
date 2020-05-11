@@ -91,6 +91,8 @@ public class GraphFragment extends Fragment {
         andamentoTextView = root.findViewById(R.id.andamento_tv_title);
         if (isDarkThemeEnabled)
             setDarkTheme();
+        else
+            eyeButton.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
         return root;
     }
 
@@ -186,6 +188,8 @@ public class GraphFragment extends Fragment {
                     }
                     else {
                         eyeButton.setBackground(getResources().getDrawable(R.drawable.eye_open));
+                        if (isDarkThemeEnabled)
+                            eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
                         chart.setDrawValueAboveBar(true);
                         chart.getBarData().setDrawValues(true);
                     }
