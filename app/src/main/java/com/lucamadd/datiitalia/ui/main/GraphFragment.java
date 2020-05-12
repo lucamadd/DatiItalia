@@ -2,6 +2,7 @@ package com.lucamadd.datiitalia.ui.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
@@ -44,7 +46,10 @@ import java.util.Locale;
 
 public class GraphFragment extends Fragment {
 
-    private BarChart chart;
+    private BarChart chart1;
+    private BarChart chart2;
+    private BarChart chart3;
+    private BarChart chart4;
     private DataHelper data;
     private ArrayList<AndamentoNazionale> dati = null;
     private Button eyeButton;
@@ -52,6 +57,15 @@ public class GraphFragment extends Fragment {
     private boolean isDarkThemeEnabled;
     private LinearLayout graphLayout;
     private TextView andamentoTextView;
+
+    private CardView cardGraph1;
+    private CardView cardGraph2;
+    private CardView cardGraph3;
+    private CardView cardGraph4;
+    private TextView textGraph1;
+    private TextView textGraph2;
+    private TextView textGraph3;
+    private TextView textGraph4;
 
 
 
@@ -85,10 +99,23 @@ public class GraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_graph, container, false);
-        chart = root.findViewById(R.id.barchart);
+        chart1 = root.findViewById(R.id.barchart1);
+        chart2 = root.findViewById(R.id.barchart2);
+        chart3 = root.findViewById(R.id.barchart3);
+        chart4 = root.findViewById(R.id.barchart4);
         eyeButton = root.findViewById(R.id.eye_button);
         graphLayout = root.findViewById(R.id.graph_layout);
         andamentoTextView = root.findViewById(R.id.andamento_tv_title);
+
+        cardGraph1 = root.findViewById(R.id.card_graph1);
+        cardGraph2 = root.findViewById(R.id.card_graph2);
+        cardGraph3 = root.findViewById(R.id.card_graph3);
+        cardGraph4 = root.findViewById(R.id.card_graph4);
+
+        textGraph1 = root.findViewById(R.id.graph_tv1);
+        textGraph2 = root.findViewById(R.id.graph_tv2);
+        textGraph3 = root.findViewById(R.id.graph_tv3);
+        textGraph4 = root.findViewById(R.id.graph_tv4);
         if (isDarkThemeEnabled)
             setDarkTheme();
         else
@@ -100,6 +127,17 @@ public class GraphFragment extends Fragment {
         graphLayout.setBackgroundColor(Color.parseColor("#1d1d1d"));
         andamentoTextView.setTextColor(Color.parseColor("#a8a8a8"));
         eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+        cardGraph1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        textGraph1.setTextColor(Color.parseColor("#a8a8a8"));
+
+        cardGraph2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        textGraph2.setTextColor(Color.parseColor("#a8a8a8"));
+
+        cardGraph3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        textGraph3.setTextColor(Color.parseColor("#a8a8a8"));
+
+        cardGraph4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#292929")));
+        textGraph4.setTextColor(Color.parseColor("#a8a8a8"));
     }
 
     private class Connection extends AsyncTask<Void, Void, Void> {
@@ -123,79 +161,107 @@ public class GraphFragment extends Fragment {
 
     private void setData(ArrayList<AndamentoNazionale> dati){
         if (dati !=null){
-            ArrayList<BarEntry> NoOfEmp = new ArrayList<>();
+            final ArrayList<BarChart> charts = new ArrayList<>();
+            charts.add(chart1);
+            charts.add(chart2);
+            charts.add(chart3);
+            charts.add(chart4);
+            ArrayList<BarEntry> nuoviCasi = new ArrayList<>();
+            ArrayList<BarEntry> deceduti = new ArrayList<>();
+            ArrayList<BarEntry> guariti = new ArrayList<>();
+            ArrayList<BarEntry> totaleCasi = new ArrayList<>();
+
+            ArrayList<ArrayList<BarEntry>> entries = new ArrayList<>();
+            entries.add(nuoviCasi);
+            entries.add(deceduti);
+            entries.add(guariti);
+            entries.add(totaleCasi);
 
             ArrayList<String> year = new ArrayList<>();
             for (int i=0;i<dati.size();i++){
-                NoOfEmp.add(new BarEntry(dati.get(i).getNuovi_positivi(),i));
+                nuoviCasi.add(new BarEntry(dati.get(i).getNuovi_positivi(),i));
+                deceduti.add(new BarEntry(dati.get(i).getDeceduti(),i));
+                guariti.add(new BarEntry(dati.get(i).getDimessi_guariti(),i));
+                totaleCasi.add(new BarEntry(dati.get(i).getTotale_casi(),i));
                 year.add(getRightDate(dati.get(i).getData()));
                 Log.i(dati.get(i).getData(),dati.get(i).getNuovi_positivi() + "");
             }
-            BarDataSet bardataset = new BarDataSet(NoOfEmp, "Nuovi casi");
-            chart.animateY(500);
-            chart.getAxisLeft().setAxisMinValue(0);
-            chart.getAxisLeft().setDrawGridLines(false);
-            chart.getAxisLeft().setDrawAxisLine(true);
-            if (isDarkThemeEnabled)
-                chart.getAxisLeft().setTextColor(Color.parseColor("#a8a8a8"));
-            chart.getAxisRight().setEnabled(false);
-            chart.setDescription("");
-            chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-            chart.getXAxis().setDrawGridLines(false);
-            if (isDarkThemeEnabled)
-                chart.getXAxis().setTextColor(Color.parseColor("#a8a8a8"));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                chart.getXAxis().setTypeface(getResources().getFont(R.font.bevietnambold));
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                chart.getAxisLeft().setTypeface(getResources().getFont(R.font.bevietnambold));
-            }
-            chart.setNoDataText("Description that you want");
-            Paint p = chart.getPaint(Chart.PAINT_INFO);
-            p.setTextSize(13);
-            if (isDarkThemeEnabled)
-                p.setColor(Color.parseColor("#a8a8a8"));
-            else
-                p.setColor(Color.parseColor("#000000"));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                p.setTypeface(getResources().getFont(R.font.bevietnambold));
-            }
-            BarData data = new BarData(year,bardataset);
-            bardataset.setColors(ColorTemplate.PASTEL_COLORS);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                chart.getLegend().setTypeface(getResources().getFont(R.font.bevietnambold));
-            }
-            if (isDarkThemeEnabled)
-                chart.getLegend().setTextColor(Color.parseColor("#a8a8a8"));
-            chart.setData(data);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                chart.getBarData().setValueTypeface(getResources().getFont(R.font.bevietnambold));
-            }
-            if (isDarkThemeEnabled)
-                chart.getBarData().setValueTextColor(Color.parseColor("#a8a8a8"));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                chart.setDescriptionTypeface(getResources().getFont(R.font.bevietnambold));
-            }
-            eyeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (chart.isDrawValueAboveBarEnabled()){
-                        eyeButton.setBackground(getResources().getDrawable(R.drawable.eye_closed));
-                        if (isDarkThemeEnabled)
-                            eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
-                        chart.setDrawValueAboveBar(false);
-                        chart.getBarData().setDrawValues(false);
-                    }
-                    else {
-                        eyeButton.setBackground(getResources().getDrawable(R.drawable.eye_open));
-                        if (isDarkThemeEnabled)
-                            eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
-                        chart.setDrawValueAboveBar(true);
-                        chart.getBarData().setDrawValues(true);
-                    }
-                    chart.invalidate();
+            for (int j=0;j<charts.size();j++){
+                BarDataSet bardataset = new BarDataSet(entries.get(j), "Nuovi casi");
+                charts.get(j).getLegend().setEnabled(false);
+                charts.get(j).animateY(500);
+                charts.get(j).getAxisLeft().setAxisMinValue(0);
+                charts.get(j).getAxisLeft().setDrawGridLines(false);
+                charts.get(j).getAxisLeft().setDrawAxisLine(true);
+                if (isDarkThemeEnabled)
+                    charts.get(j).getAxisLeft().setTextColor(Color.parseColor("#a8a8a8"));
+                charts.get(j).getAxisRight().setEnabled(false);
+                charts.get(j).setDescription("");
+                charts.get(j).getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                charts.get(j).getXAxis().setDrawGridLines(false);
+                if (isDarkThemeEnabled)
+                    charts.get(j).getXAxis().setTextColor(Color.parseColor("#a8a8a8"));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    charts.get(j).getXAxis().setTypeface(getResources().getFont(R.font.bevietnambold));
                 }
-            });
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    charts.get(j).getAxisLeft().setTypeface(getResources().getFont(R.font.bevietnambold));
+                }
+                charts.get(j).setNoDataText("Description that you want");
+                Paint p = charts.get(j).getPaint(Chart.PAINT_INFO);
+                p.setTextSize(13);
+                if (isDarkThemeEnabled)
+                    p.setColor(Color.parseColor("#a8a8a8"));
+                else
+                    p.setColor(Color.parseColor("#000000"));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    p.setTypeface(getResources().getFont(R.font.bevietnambold));
+                }
+                BarData data = new BarData(year,bardataset);
+                bardataset.setColors(ColorTemplate.PASTEL_COLORS);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    charts.get(j).getLegend().setTypeface(getResources().getFont(R.font.bevietnambold));
+                }
+                if (isDarkThemeEnabled)
+                    charts.get(j).getLegend().setTextColor(Color.parseColor("#a8a8a8"));
+                charts.get(j).setData(data);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    charts.get(j).getBarData().setValueTypeface(getResources().getFont(R.font.bevietnambold));
+                }
+                if (isDarkThemeEnabled)
+                    charts.get(j).getBarData().setValueTextColor(Color.parseColor("#a8a8a8"));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    charts.get(j).setDescriptionTypeface(getResources().getFont(R.font.bevietnambold));
+                }
+                final int finalJ = j;
+                eyeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (charts.get(finalJ).isDrawValueAboveBarEnabled()){
+                            eyeButton.setBackground(getResources().getDrawable(R.drawable.eye_closed));
+                            if (isDarkThemeEnabled)
+                                eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+                            for (BarChart chart:charts){
+                                chart.setDrawValueAboveBar(false);
+                                chart.getBarData().setDrawValues(false);
+                            }
+
+                        }
+                        else {
+                            eyeButton.setBackground(getResources().getDrawable(R.drawable.eye_open));
+                            if (isDarkThemeEnabled)
+                                eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+                            for (BarChart chart:charts){
+                                chart.setDrawValueAboveBar(true);
+                                chart.getBarData().setDrawValues(true);
+                            }
+                        }
+                        for (BarChart chart:charts){
+                            chart.invalidate();
+                        }
+                    }
+                });
+            }
         }
 
     }
@@ -260,5 +326,6 @@ public class GraphFragment extends Fragment {
         }
         return date;
     }
+
 
 }

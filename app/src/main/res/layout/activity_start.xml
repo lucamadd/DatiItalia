@@ -7,7 +7,7 @@
     android:id="@+id/master_coordinator_layout"
     tools:context=".StartActivity">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.lucamadd.datiitalia.Helper.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

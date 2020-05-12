@@ -24,7 +24,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.lucamadd.datiitalia.Helper.CustomViewPager;
 import com.lucamadd.datiitalia.ui.main.SectionsPagerAdapter;
 
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class StartActivity extends AppCompatActivity
 {
 
     TabLayout tabs = null;
-    ViewPager viewPager = null;
+    CustomViewPager viewPager = null;
 
 
     @Override
@@ -88,6 +90,7 @@ public class StartActivity extends AppCompatActivity
                 //tab.getIcon().setColorFilter(getResources().getColor(R.color.ic_launcher_background), PorterDuff.Mode.SRC_IN);
                 int position = tab.getPosition();
                 createTabs(position);
+                viewPager.setPagingEnabled(position != 3);
 
             }
 

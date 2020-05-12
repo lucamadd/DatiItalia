@@ -3,6 +3,7 @@ package com.lucamadd.datiitalia.ui.main;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -34,7 +35,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0:
                 return PlaceholderFragment.newInstance(position + 1);
-
             case 1:
                 return RegioniFragment.newInstance(position + 1);
                 //return BlankFragment.newInstance("","");
@@ -59,7 +59,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
+        // Show 4 total pages.
         return 4;
     }
 }
