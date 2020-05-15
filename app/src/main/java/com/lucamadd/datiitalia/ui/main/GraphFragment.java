@@ -180,11 +180,10 @@ public class GraphFragment extends Fragment {
             ArrayList<String> year = new ArrayList<>();
             for (int i=0;i<dati.size();i++){
                 nuoviCasi.add(new BarEntry(dati.get(i).getNuovi_positivi(),i));
-                deceduti.add(new BarEntry(dati.get(i).getDeceduti(),i));
-                guariti.add(new BarEntry(dati.get(i).getDimessi_guariti(),i));
-                totaleCasi.add(new BarEntry(dati.get(i).getTotale_casi(),i));
+                deceduti.add(new BarEntry(dati.get(i).getTotale_positivi(),i));
+                guariti.add(new BarEntry(dati.get(i).getDeceduti(),i));
+                totaleCasi.add(new BarEntry(dati.get(i).getDimessi_guariti(),i));
                 year.add(getRightDate(dati.get(i).getData()));
-                Log.i(dati.get(i).getData(),dati.get(i).getNuovi_positivi() + "");
             }
             for (int j=0;j<charts.size();j++){
                 BarDataSet bardataset = new BarDataSet(entries.get(j), "Nuovi casi");
