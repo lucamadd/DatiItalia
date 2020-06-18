@@ -7,6 +7,8 @@ Scarica <a href="https://github.com/lucamadd/DatiItalia/releases">qui</a> l'ulti
 <br><br><br>
 ![Dati Italia BETA](/assets/screenshotapp.png)
 <br><br>
+![Dati Italia BETA2](/assets/screenshotapp3.png)
+<br><br>
 ## License
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
