@@ -301,7 +301,9 @@ public class ProvinceFragment extends Fragment {
             super.onPostExecute(aVoid);
             datiProvinciali = data.getDatiProvinciali();
             variazioneDatiProvinciali = data.getVariazioneDatiProvinciali();
-            setData(datiProvinciali, variazioneDatiProvinciali, selectedRegion[0]);
+            if (datiProvinciali != null && variazioneDatiProvinciali != null)
+                Log.i("ProvinceFragment - OnPostExecute()",datiProvinciali.size() + " " + variazioneDatiProvinciali.size());
+                setData(datiProvinciali, variazioneDatiProvinciali, selectedRegion[0]);
             data_province.setText(data.getCurrentDayText());
         }
     }
@@ -315,7 +317,7 @@ public class ProvinceFragment extends Fragment {
             for (AndamentoProvinciale ar: dati){
                 if (ar.getDenominazione_regione().equals(regione)) {
                     selectedProvince.add(ar);
-                    Log.i("DEBUG", "\ncodice_regione: " + ar.getCodice_regione() +
+                    Log.i("DEBUG1", "\ncodice_regione: " + ar.getCodice_regione() +
                             "\ndenominazione_regione: " + ar.getDenominazione_regione() +
                             "\ntotale_casi: " + ar.getTotale_casi() +
                             "\ndenominazione_provincia: " + ar.getDenominazione_provincia());
@@ -325,7 +327,7 @@ public class ProvinceFragment extends Fragment {
             for (AndamentoProvinciale ar: datiNuovi){
                 if (ar.getDenominazione_regione().equals(regione)) {
                     selectedProvinceNuovi.add(ar);
-                    Log.i("DEBUG", "\ncodice_regione: " + ar.getCodice_regione() +
+                    Log.i("DEBUG2", "\ncodice_regione: " + ar.getCodice_regione() +
                             "\ndenominazione_regione: " + ar.getDenominazione_regione() +
                             "\ntotale_casi: " + ar.getTotale_casi() +
                             "\ndenominazione_provincia: " + ar.getDenominazione_provincia());
@@ -339,11 +341,11 @@ public class ProvinceFragment extends Fragment {
             int newCases = 0;
 
             for (int i=0;i<selectedProvince.size();i++){
+                Log.i("ALLORA:",selectedProvince.size() + selectedProvinceNuovi.size() + "");
 
                 if (getContext() != null){
                     cases += selectedProvince.get(i).getTotale_casi();
                     newCases += selectedProvinceNuovi.get(i).getTotale_casi();
-
                     casi_totali_province.setText(decim.format(cases) + " casi");
                     casi_totali_province_piu.setText("+" + decim.format(newCases));
 

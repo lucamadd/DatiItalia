@@ -235,7 +235,7 @@ public class DataHelper {
         try {
             String httpResponse = run(URL_ANDAMENTO_PROVINCIALE_LATEST);
             if (httpResponse != null){
-                System.out.println(httpResponse);
+                //System.out.println(httpResponse);
                 JsonParser parser = new JsonParser();
                 JsonArray jArray = (JsonArray) parser.parse(httpResponse);
                 Gson gson = new Gson();
@@ -273,13 +273,14 @@ public class DataHelper {
                     ArrayList<AndamentoProvinciale> datiNuovi = new ArrayList<>();
                     ArrayList<AndamentoProvinciale> datiVecchi = new ArrayList<>();
 
-                    for (int i=jArray.size()-128;i<jArray.size();i++){
+                    Log.i("Dim array",jArray.size()+"  e");
+                    for (int i=jArray.size()-149;i<jArray.size();i++){
                         //Log.i("first for" , jArray.get(i).toString());
                         datiNuovi.add(gson.fromJson(jArray.get(i).toString(),
                                 AndamentoProvinciale.class));
                     }
 
-                    for (int i=jArray.size()-256;i<jArray.size()-128;i++){
+                    for (int i=jArray.size()-298;i<jArray.size()-149;i++){
                         //Log.i("second for" , jArray.get(i).toString());
                         datiVecchi.add(gson.fromJson(jArray.get(i).toString(),
                                 AndamentoProvinciale.class));
@@ -287,7 +288,8 @@ public class DataHelper {
 
                     variazioneDatiProvinciali = new ArrayList<>();
                     //Log.i("sizes","datinuovi.size() is "+datiNuovi.size()+"\ndativecchi.size() is "+datiVecchi.size());
-                    for (int i=0;i<128;i++) {
+                    for (int i=0;i<149;i++) {
+                        Log.i("debugtag","\n\nnuovi: " + datiNuovi.get(i).getTotale_casi() + "("+datiNuovi.get(i).getDenominazione_provincia()+")" + "\nvecchi: " + datiVecchi.get(i).getTotale_casi()+ "("+datiVecchi.get(i).getDenominazione_provincia()+")");
                         variazioneDatiProvinciali.add(new AndamentoProvinciale(null, null, datiNuovi.get(i).getCodice_regione(),datiNuovi.get(i).getDenominazione_regione(),
                                 datiNuovi.get(i).getCodice_provincia(),datiNuovi.get(i).getDenominazione_provincia(),datiNuovi.get(i).getSigla_provincia(),
                                 0,0,datiNuovi.get(i).getTotale_casi() - datiVecchi.get(i).getTotale_casi(),null,null));
