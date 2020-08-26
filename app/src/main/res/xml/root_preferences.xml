@@ -55,7 +55,7 @@
             app:iconSpaceReserved="false"
             app:key="info"
             app:title="Versione dell'applicazione"
-            app:summary="0.8.4b"/>
+            app:summary="0.9b"/>
 
         <Preference
             app:iconSpaceReserved="false"

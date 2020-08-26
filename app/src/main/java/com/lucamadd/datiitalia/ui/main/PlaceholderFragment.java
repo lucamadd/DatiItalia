@@ -2,16 +2,23 @@ package com.lucamadd.datiitalia.ui.main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -23,6 +30,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -35,6 +44,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -59,11 +69,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -459,7 +472,7 @@ public class PlaceholderFragment extends Fragment {
     public void checkUpdates(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String curr_version = "v0.8.4b";
+        String curr_version = "v0.9b";
         String server_version = null;
         try {
             server_version = SettingsActivity.getFinalURL("https://github.com/lucamadd/DatiItalia/releases/latest");
@@ -467,13 +480,55 @@ public class PlaceholderFragment extends Fragment {
             e.printStackTrace();
         }
         server_version = server_version.substring(52);
+        Log.i("serverversion", server_version);
         if (!curr_version.equals(server_version)){
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage(Html.fromHtml("<br>È disponibile un aggiornamento! Clicca <a target=\"_blank\" href=\"https://github.com/lucamadd/DatiItalia/releases/latest/download/Dati.Italia." + server_version + ".apk\">qui</a> per aggiornare.<br>"))
-                    .setTitle("Controllo aggiornamenti");
+            final String finalServer_version = server_version;
+            builder.setMessage(Html.fromHtml("<br>È disponibile un aggiornamento!"))
+                    .setTitle("Controllo aggiornamenti").setNeutralButton("Scarica", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    startDownload(finalServer_version);
+                }
+            });
             AlertDialog dialog = builder.create();
             dialog.show();
             ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
         }
+    }
+
+    public void startDownload(String server_version) {
+        Toast.makeText(getContext(), "Download iniziato" ,Toast.LENGTH_SHORT).show();
+
+        String url = "https://github.com/lucamadd/DatiItalia/releases/latest/download/Dati.Italia." + server_version + ".apk";
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+
+        final String nameOfFile = URLUtil.guessFileName(url, null, MimeTypeMap.getFileExtensionFromUrl(url)); //fetching name of file and type from server
+
+
+        request.setTitle(nameOfFile);  //set title for notification in status_bar
+        //request.setDescription("Apri la cartella Download per installare la nuova versione");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);  //flag for if you want to show notification in status or not
+
+        //String nameOfFile = "YourFileName.pdf";    //if you want to give file_name manually
+
+        //String nameOfFile = URLUtil.guessFileName(url, null, MimeTypeMap.getFileExtensionFromUrl(url)); //fetching name of file and type from server
+
+        File f = new File(Environment.getExternalStorageDirectory() + "/Download");       // location, where to download file in external directory
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        request.setDestinationInExternalPublicDir("Download", nameOfFile);
+        DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
+        downloadManager.enqueue(request);
+        BroadcastReceiver onComplete=new BroadcastReceiver() {
+            public void onReceive(Context ctxt, Intent intent) {
+                Toast.makeText(ctxt, "Download completato. Installa la nuova versione dalla cartella Download" ,Toast.LENGTH_LONG).show();
+
+            }
+        };
+        getContext().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+
     }
 }
