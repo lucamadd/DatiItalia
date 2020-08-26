@@ -55,13 +55,12 @@
             app:iconSpaceReserved="false"
             app:key="info"
             app:title="Versione dell'applicazione"
-            app:summary="0.8.3b"/>
+            app:summary="0.8.4b"/>
 
         <Preference
             app:iconSpaceReserved="false"
             app:key="feedback"
             app:title="Lascia feedback"
-            app:enabled="false"
             app:summary="Invia un feedback allo sviluppatore"/>
 
         <Preference

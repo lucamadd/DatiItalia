@@ -36,6 +36,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.lucamadd.datiitalia.Helper.AndamentoNazionale;
+import com.lucamadd.datiitalia.Helper.AndamentoRegionale;
 import com.lucamadd.datiitalia.Helper.DataHelper;
 import com.lucamadd.datiitalia.R;
 
@@ -51,7 +52,9 @@ public class GraphFragment extends Fragment {
     private BarChart chart3;
     private BarChart chart4;
     private DataHelper data;
-    private ArrayList<AndamentoNazionale> dati = null;
+    private ArrayList<AndamentoNazionale> datiNazionali = null;
+    private ArrayList<AndamentoRegionale> datiRegionali = null;
+
     private Button eyeButton;
 
     private boolean isDarkThemeEnabled;
@@ -66,6 +69,10 @@ public class GraphFragment extends Fragment {
     private TextView textGraph2;
     private TextView textGraph3;
     private TextView textGraph4;
+
+    private TextView regioniAlertGraph;
+
+    private String favRegion;
 
 
 
@@ -116,10 +123,25 @@ public class GraphFragment extends Fragment {
         textGraph2 = root.findViewById(R.id.graph_tv2);
         textGraph3 = root.findViewById(R.id.graph_tv3);
         textGraph4 = root.findViewById(R.id.graph_tv4);
+
+
+
+        regioniAlertGraph = root.findViewById(R.id.regioni_alert_graph);
         if (isDarkThemeEnabled)
             setDarkTheme();
         else
             eyeButton.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+
+        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(getContext());
+        favRegion= prefs.getString("regione","");
+        if (!favRegion.equals("")){
+            textGraph3.setText("Nuovi casi (" + favRegion + ")");
+            textGraph4.setText("Totale attualmente positivi (" + favRegion + ")");
+        } else {
+            cardGraph3.setVisibility(View.GONE);
+            cardGraph4.setVisibility(View.GONE);
+            regioniAlertGraph.setVisibility(View.VISIBLE);
+        }
         return root;
     }
 
@@ -145,6 +167,7 @@ public class GraphFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             data.getAllData();
+            data.getMoreRegioniData();
             return null;
         }
 
@@ -152,10 +175,125 @@ public class GraphFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.i("onPostExecute()","iniziato");
-            dati = data.getGraphData();
-            setData(dati);
+            datiNazionali = data.getGraphData();
+            datiRegionali = data.getGraphRegionData();
+            setData(datiNazionali);
+            setRegionData(datiRegionali);
             Log.i("onPostExecute()","terminato");
 
+        }
+    }
+
+    private void setRegionData(ArrayList<AndamentoRegionale> dati){
+        Log.i("setRegionData()","iniziato");
+        ArrayList<AndamentoRegionale> regionData = new ArrayList<>();
+        if (!favRegion.equals("")) {
+            Log.i("setRegionData()","entrato nel primo if");
+            if (dati != null) {
+                Log.i("setRegionData()","entrato nel secondo if");
+                for (int i=0;i<dati.size();i++){
+                    if (dati.get(i).getDenominazione_regione().equals(favRegion))
+                        regionData.add(dati.get(i));
+                }
+                for (int i=0;i<regionData.size();i++){
+                    Log.i("setRegionData() - for","favRegion= "+ favRegion + "  denom_regione= "+regionData.get(i).getDenominazione_regione());
+
+                }
+                Log.i("setRegionData()","inoltrato");
+                for (int i=0;i<dati.size();i++)
+                    Log.i("pippobaudo", "regione: "+dati.get(i).getDenominazione_regione()+"   casi: "+dati.get(i).getTotale_casi());
+                final ArrayList<BarChart> charts = new ArrayList<>();
+                charts.add(chart3);
+                charts.add(chart4);
+                ArrayList<BarEntry> nuoviCasi = new ArrayList<>();
+                ArrayList<BarEntry> totaleCasi = new ArrayList<>();
+
+                ArrayList<ArrayList<BarEntry>> entries = new ArrayList<>();
+                entries.add(nuoviCasi);
+                entries.add(totaleCasi);
+
+                ArrayList<String> year = new ArrayList<>();
+                for (int i = 0; i < regionData.size(); i++) {
+                    nuoviCasi.add(new BarEntry(regionData.get(i).getNuovi_positivi(), i));
+                    totaleCasi.add(new BarEntry(regionData.get(i).getTotale_positivi(), i));
+                    year.add(getRightDate(regionData.get(i).getData()));
+                }
+                for (int j = 0; j < charts.size(); j++) {
+                    BarDataSet bardataset = new BarDataSet(entries.get(j), "Nuovi casi");
+                    charts.get(j).getLegend().setEnabled(false);
+                    charts.get(j).animateY(500);
+                    charts.get(j).getAxisLeft().setAxisMinValue(0);
+                    charts.get(j).getAxisLeft().setDrawGridLines(false);
+                    charts.get(j).getAxisLeft().setDrawAxisLine(true);
+                    if (isDarkThemeEnabled)
+                        charts.get(j).getAxisLeft().setTextColor(Color.parseColor("#a8a8a8"));
+                    charts.get(j).getAxisRight().setEnabled(false);
+                    charts.get(j).setDescription("");
+                    charts.get(j).getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                    charts.get(j).getXAxis().setDrawGridLines(false);
+                    if (isDarkThemeEnabled)
+                        charts.get(j).getXAxis().setTextColor(Color.parseColor("#a8a8a8"));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        charts.get(j).getXAxis().setTypeface(getResources().getFont(R.font.bevietnambold));
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        charts.get(j).getAxisLeft().setTypeface(getResources().getFont(R.font.bevietnambold));
+                    }
+                    charts.get(j).setNoDataText("Description that you want");
+                    Paint p = charts.get(j).getPaint(Chart.PAINT_INFO);
+                    p.setTextSize(13);
+                    if (isDarkThemeEnabled)
+                        p.setColor(Color.parseColor("#a8a8a8"));
+                    else
+                        p.setColor(Color.parseColor("#000000"));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        p.setTypeface(getResources().getFont(R.font.bevietnambold));
+                    }
+                    BarData data = new BarData(year, bardataset);
+                    bardataset.setColors(ColorTemplate.PASTEL_COLORS);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        charts.get(j).getLegend().setTypeface(getResources().getFont(R.font.bevietnambold));
+                    }
+                    if (isDarkThemeEnabled)
+                        charts.get(j).getLegend().setTextColor(Color.parseColor("#a8a8a8"));
+                    charts.get(j).setData(data);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        charts.get(j).getBarData().setValueTypeface(getResources().getFont(R.font.bevietnambold));
+                    }
+                    if (isDarkThemeEnabled)
+                        charts.get(j).getBarData().setValueTextColor(Color.parseColor("#a8a8a8"));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        charts.get(j).setDescriptionTypeface(getResources().getFont(R.font.bevietnambold));
+                    }
+                    final int finalJ = j;
+                    eyeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (charts.get(finalJ).isDrawValueAboveBarEnabled()) {
+                                eyeButton.setBackground(getResources().getDrawable(R.drawable.eye_closed));
+                                if (isDarkThemeEnabled)
+                                    eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+                                for (BarChart chart : charts) {
+                                    chart.setDrawValueAboveBar(false);
+                                    chart.getBarData().setDrawValues(false);
+                                }
+
+                            } else {
+                                eyeButton.setBackground(getResources().getDrawable(R.drawable.eye_open));
+                                if (isDarkThemeEnabled)
+                                    eyeButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+                                for (BarChart chart : charts) {
+                                    chart.setDrawValueAboveBar(true);
+                                    chart.getBarData().setDrawValues(true);
+                                }
+                            }
+                            for (BarChart chart : charts) {
+                                chart.invalidate();
+                            }
+                        }
+                    });
+                }
+            }
         }
     }
 
@@ -164,25 +302,17 @@ public class GraphFragment extends Fragment {
             final ArrayList<BarChart> charts = new ArrayList<>();
             charts.add(chart1);
             charts.add(chart2);
-            charts.add(chart3);
-            charts.add(chart4);
             ArrayList<BarEntry> nuoviCasi = new ArrayList<>();
-            ArrayList<BarEntry> deceduti = new ArrayList<>();
-            ArrayList<BarEntry> guariti = new ArrayList<>();
             ArrayList<BarEntry> totaleCasi = new ArrayList<>();
 
             ArrayList<ArrayList<BarEntry>> entries = new ArrayList<>();
             entries.add(nuoviCasi);
-            entries.add(deceduti);
-            entries.add(guariti);
             entries.add(totaleCasi);
 
             ArrayList<String> year = new ArrayList<>();
             for (int i=0;i<dati.size();i++){
                 nuoviCasi.add(new BarEntry(dati.get(i).getNuovi_positivi(),i));
-                deceduti.add(new BarEntry(dati.get(i).getTotale_positivi(),i));
-                guariti.add(new BarEntry(dati.get(i).getDeceduti(),i));
-                totaleCasi.add(new BarEntry(dati.get(i).getDimessi_guariti(),i));
+                totaleCasi.add(new BarEntry(dati.get(i).getTotale_positivi(),i));
                 year.add(getRightDate(dati.get(i).getData()));
             }
             for (int j=0;j<charts.size();j++){

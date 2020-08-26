@@ -1,6 +1,7 @@
 package com.lucamadd.datiitalia.ui.main;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +12,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.JsonReader;
 import android.util.Log;
 import android.util.MalformedJsonException;
@@ -55,6 +59,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -147,6 +152,7 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
+
         masterLayout = root.findViewById(R.id.master_layout);
         italiaProgressBar = root.findViewById(R.id.italia_progress_bar);
         firstLayout = root.findViewById(R.id.first_layout);
@@ -217,6 +223,7 @@ public class PlaceholderFragment extends Fragment {
 
         data = new DataHelper();
         data_italia = root.findViewById(R.id.data_italia);
+        checkUpdates();
 
         return root;
     }
@@ -447,5 +454,26 @@ public class PlaceholderFragment extends Fragment {
         italiaTVCasiTotaliItaliaPiu.setTextColor(Color.parseColor("#a8a8a8"));
 
          */
+    }
+
+    public void checkUpdates(){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String curr_version = "v0.8.4b";
+        String server_version = null;
+        try {
+            server_version = SettingsActivity.getFinalURL("https://github.com/lucamadd/DatiItalia/releases/latest");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        server_version = server_version.substring(52);
+        if (!curr_version.equals(server_version)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage(Html.fromHtml("<br>È disponibile un aggiornamento! Clicca <a target=\"_blank\" href=\"https://github.com/lucamadd/DatiItalia/releases/latest/download/Dati.Italia." + server_version + ".apk\">qui</a> per aggiornare.<br>"))
+                    .setTitle("Controllo aggiornamenti");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            ((TextView)dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+        }
     }
 }

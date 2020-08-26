@@ -7,8 +7,8 @@ android {
         applicationId "com.lucamadd.datiitalia"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 7
-        versionName "0.8.3b"
+        versionCode 8
+        versionName "0.8.4b"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -53,6 +53,7 @@ public class DataHelper {
     private ArrayList<AndamentoProvinciale> variazioneDatiProvinciali = null;
 
     private ArrayList<AndamentoNazionale> graphData = null;
+    private ArrayList<AndamentoRegionale> graphRegionData = null;
 
 
     @SuppressWarnings("deprecation")
@@ -176,7 +177,7 @@ public class DataHelper {
                          */
                 ArrayList<AndamentoRegionale> datiNuovi = new ArrayList<>();
                 ArrayList<AndamentoRegionale> datiVecchi = new ArrayList<>();
-
+                ArrayList<AndamentoRegionale> tempRegionData = new ArrayList<>();
                             /*
                             ArrayList<AndamentoRegionale> datiRegioni = new ArrayList<>();
                             for (int i=0; i<jArray.size();i++){
@@ -195,6 +196,13 @@ public class DataHelper {
                     datiVecchi.add(gson.fromJson(jArray.get(i).toString(),
                             AndamentoRegionale.class));
                 }
+
+                for (int i=0;i<jArray.size();i++){
+                    //Log.i("second for" , jArray.get(i).toString());
+                    tempRegionData.add(gson.fromJson(jArray.get(i).toString(),
+                            AndamentoRegionale.class));
+                }
+                graphRegionData = tempRegionData;
 
                 variazioneDatiRegionali = new ArrayList<>();
                 Log.i("sizes","datinuovi.size() is "+datiNuovi.size()+"\ndativecchi.size() is "+datiVecchi.size());
@@ -329,6 +337,35 @@ public class DataHelper {
     }
 
     public ArrayList<AndamentoNazionale> getGraphData() { return graphData; }
+
+    public ArrayList<AndamentoRegionale> getGraphRegionData() {
+        /*
+        String response = run(URL_ANDAMENTO_REGIONALE);
+        if (response != null){
+            try {
+                JsonParser parser = new JsonParser();
+                JsonArray jArray = (JsonArray) parser.parse(response);
+                Gson gson = new Gson();
+
+                ArrayList<AndamentoRegionale> tempRegionData = new ArrayList<>();
+
+                for (int i=0;i<jArray.size();i++){
+                    //Log.i("second for" , jArray.get(i).toString());
+                    tempRegionData.add(gson.fromJson(jArray.get(i).toString(),
+                            AndamentoRegionale.class));
+                }
+                graphRegionData = tempRegionData;
+
+            }
+            catch(JsonSyntaxException e){
+
+            }
+        }
+
+         */
+        Log.i("graphregiondata","graphRegionData.size() is "+ (graphRegionData == null? "null": graphRegionData.size()));
+        return graphRegionData;
+    }
 
     public void setDatiNazionali(AndamentoNazionale dati) {
         this.datiNazionali = dati;
