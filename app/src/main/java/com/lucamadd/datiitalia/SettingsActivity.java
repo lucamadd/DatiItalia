@@ -123,6 +123,7 @@ public class SettingsActivity extends AppCompatActivity {
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/marker\">Marker icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/up\">Up icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/visible\">Eye icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
+                            "        <a target=\"_blank\" href=\"https://icons8.com/icon/80152/notepad\">Notepad icon by Icons8</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
                             "        <a target=\"_blank\" href=\"https://icons8.com/icons/set/closed-eye\">Closed Eye icon</a> icon by <a target=\"_blank\" href=\"https://icons8.com\">Icons8</a><br><br>" +
                             "        <a target=\"_blank\" href=\"https://icons8.it/icons/set/combo-chart\">Grafico combinato icon</a> icon by <a target=\"_blank\" href=\"https://icons8.it\">Icons8</a><br>"))
                             .setTitle("Crediti");
@@ -145,12 +146,14 @@ public class SettingsActivity extends AppCompatActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage(Html.fromHtml("<ul>" +
-                            "<li>Risolto un bug nella visualizzazione del menu inferiore</li>" +
-                            "<li>Rimossi dei grafici inutilizzati</li>" +
+                            "<li>Aggiunta la possibilità di vedere il numero di tamponi giornalieri</li>" +
+                            "<li>Ora è possibile visualizzare le note giornaliere (se presenti)</li>" +
                             "<li>Risolto un bug che impediva di lasciare un feedback</li>" +
-                            "<li>Aggiunti grafici per nuovi casi e positivi per la regione preferita</li>" +
-                            "<li>Aggiunta la funzione di aggiornamento automatico</li>" +
-                            "<li>Aggiunta la possibilità di visualizzare il changelog</li>" +
+                            "<li>Aggiunta notifica giornaliera</li>" +
+                            "<li>N.B. Il servizio di notifica è gestito direttamente da Google. Nel caso di applicazioni " +
+                            "presenti sul Play Store, la notifica viene inviata anche se l'app non è in esecuzione. Dati Italia " +
+                            "non è presente sul Play Store, per cui si potrebbero verificare ritardi nella ricezione delle " +
+                            "notifiche, o in alcuni casi potrebbero non essere ricevute.</li>" +
                             "</ul>"))
                             .setTitle("Changelog");
                     AlertDialog dialog = builder.create();

@@ -1,9 +1,7 @@
 package com.lucamadd.datiitalia.ui.main;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,10 +21,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.JsonReader;
 import android.util.Log;
-import android.util.MalformedJsonException;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,47 +30,26 @@ import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 import com.lucamadd.datiitalia.Helper.AndamentoNazionale;
 import com.lucamadd.datiitalia.Helper.DataHelper;
+import com.lucamadd.datiitalia.Helper.Measurement;
 import com.lucamadd.datiitalia.R;
 import com.lucamadd.datiitalia.SettingsActivity;
-import com.lucamadd.datiitalia.StartActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -103,6 +77,7 @@ public class PlaceholderFragment extends Fragment {
     private TextView totale_attualmente_positivi_piu = null;
     private TextView dimessi_guariti_piu = null;
     private TextView deceduti_piu = null;
+    private TextView tamponi_piu = null;
 
     private TextView data_italia = null;
     private PageViewModel pageViewModel;
@@ -116,6 +91,7 @@ public class PlaceholderFragment extends Fragment {
 
     private Button settingsButton = null;
     private Button retryButton = null;
+    private Button notesButton = null;
 
     private AndamentoNazionale datiNazionali = null;
     private AndamentoNazionale variazioneDatiNazionali = null;
@@ -156,6 +132,7 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_start, container, false);
 
+        notesButton = root.findViewById(R.id.notes_button);
         settingsButton = root.findViewById(R.id.settings_button);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,8 +149,11 @@ public class PlaceholderFragment extends Fragment {
 
         if (isDarkThemeEnabled)
             setDarkTheme(root);
-        else
+        else{
             settingsButton.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_IN);
+            notesButton.setBackground(getResources().getDrawable(R.drawable.notes));
+        }
+
 
         retryLayout = root.findViewById(R.id.retry_layout);
 
@@ -203,6 +183,8 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
+
+
         masterLayout.setVisibility(View.GONE);
 
         casi_totali_italia  = root.findViewById(R.id.casitotaliitalia);
@@ -224,6 +206,7 @@ public class PlaceholderFragment extends Fragment {
         totale_attualmente_positivi_piu = root.findViewById(R.id.totaleattualmentepositiviitaliapiu);
         dimessi_guariti_piu = root.findViewById(R.id.dimessiguaritiitaliapiu);
         deceduti_piu = root.findViewById(R.id.decedutiitaliapiu);
+        tamponi_piu = root.findViewById(R.id.tamponiitaliapiu);
         /*
         final TextView textView = root.findViewById(R.id.section_label);
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -236,8 +219,8 @@ public class PlaceholderFragment extends Fragment {
 
         data = new DataHelper();
         data_italia = root.findViewById(R.id.data_italia);
+        checkFirstRun();
         checkUpdates();
-
         return root;
     }
 
@@ -248,6 +231,7 @@ public class PlaceholderFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             data.getData();
             data.getMoreData();
+            data.getNoteData();
             return null;
         }
 
@@ -260,6 +244,27 @@ public class PlaceholderFragment extends Fragment {
             variazioneDatiNazionali = data.getVariazioneDatiNazionali();
             setMoreData(variazioneDatiNazionali);
             data_italia.setText(data.getCurrentDayText());
+            if (data.checkNote(data.getNoteGiornaliere())){
+                if (isDarkThemeEnabled)
+                    notesButton.setBackground(getResources().getDrawable(R.drawable.notes_alert_dark));
+                else
+                    notesButton.setBackground(getResources().getDrawable(R.drawable.notes_alert));
+                notesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder;
+                        if (isDarkThemeEnabled)
+                            builder = new AlertDialog.Builder(getActivity(),R.style.DarkAlertDialogStyle);
+                        else
+                            builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage(Html.fromHtml("<p>" + data.getNoteGiornaliere().getNote() + "<p>"))
+                                .setTitle("Note");
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
+            } else
+                notesButton.setEnabled(false);
             Log.i("onPostExecute()","terminato");
 
         }
@@ -277,7 +282,8 @@ public class PlaceholderFragment extends Fragment {
             variazione_totale_positivi.setText("+" + decim.format(dati.getVariazione_totale_positivi()));
             dimessi_guariti.setText(decim.format(dati.getDimessi_guariti()) + "");
             deceduti.setText(decim.format(dati.getDeceduti()) + "");
-            tamponi.setText(decim.format(dati.getTamponi()) + "");
+            //tamponi.setText(decim.format(dati.getTamponi()) + "");
+            tamponi.setText(new Measurement(dati.getTamponi()).toString());
             casi_totali_italia_piu.setText("+" + decim.format(dati.getNuovi_positivi()));
         } else {
             italiaProgressBar.setVisibility(View.VISIBLE);
@@ -293,6 +299,7 @@ public class PlaceholderFragment extends Fragment {
             int totale_attualmente_positivi_piu_ = nuovo.getTotale_positivi();
             int dimessi_guariti_piu_ = nuovo.getDimessi_guariti();
             int deceduti_piu_ = nuovo.getDeceduti();
+            int tamponi_piu_ = nuovo.getTamponi();
 
             if (ricoverati_con_sintomi_piu_ > 0){
                 ricoverati_con_sintomi_piu.setText("+" + decim.format(ricoverati_con_sintomi_piu_));
@@ -343,6 +350,11 @@ public class PlaceholderFragment extends Fragment {
                 deceduti_piu.setText("" + decim.format(deceduti_piu_));
                 deceduti_piu.setTextColor(Color.rgb(0,153,51));
             }
+            if (tamponi_piu_ == 0){
+                tamponi_piu.setText("0");
+            } else {
+                tamponi_piu.setText("+" + decim.format(tamponi_piu_).substring(1));
+            }
 
             italiaProgressBar.setVisibility(View.GONE);
             firstLayout.removeView(italiaProgressBar);
@@ -378,6 +390,8 @@ public class PlaceholderFragment extends Fragment {
         firstLayout.setBackgroundColor(Color.parseColor("#1d1d1d"));
         Button settingsButton = root.findViewById(R.id.settings_button);
         settingsButton.getBackground().setColorFilter(Color.parseColor("#a8a8a8"), PorterDuff.Mode.SRC_IN);
+        Button notesButton = root.findViewById(R.id.notes_button);
+        notesButton.setBackground(getResources().getDrawable(R.drawable.notes_alert_dark));
         TextView italiaTVTitle = root.findViewById(R.id.italia_tv_title);
         italiaTVTitle.setTextColor(Color.parseColor("#a8a8a8"));
         CardView italia_rl1 = root.findViewById(R.id.italia_rl1);
@@ -472,7 +486,7 @@ public class PlaceholderFragment extends Fragment {
     public void checkUpdates(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String curr_version = "v0.9b";
+        String curr_version = "v0.10b";
         String server_version = null;
         try {
             server_version = SettingsActivity.getFinalURL("https://github.com/lucamadd/DatiItalia/releases/latest");
@@ -531,4 +545,31 @@ public class PlaceholderFragment extends Fragment {
 
 
     }
+
+    public void checkFirstRun() {
+        boolean isFirstRun = getActivity().getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        if (isFirstRun){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(Html.fromHtml("<ul>" +
+                    "<li>Aggiunta la possibilità di vedere il numero di tamponi giornalieri</li>" +
+                    "<li>Ora è possibile visualizzare le note giornaliere (se presenti)</li>" +
+                    "<li>Risolto un bug che impediva di lasciare un feedback</li>" +
+                    "<li>Aggiunta notifica giornaliera</li>" +
+                    "<li>N.B. Il servizio di notifica è gestito direttamente da Google. Nel caso di applicazioni " +
+                    "presenti sul Play Store, la notifica viene inviata anche se l'app non è in esecuzione. Dati Italia " +
+                    "non è presente sul Play Store, per cui si potrebbero verificare ritardi nella ricezione delle " +
+                    "notifiche, o in alcuni casi potrebbero non essere ricevute.</li>" +
+                    "</ul>"))
+                    .setTitle("Novità!");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            getActivity().getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("isFirstRun", false)
+                    .apply();
+        }
+    }
+
+
 }

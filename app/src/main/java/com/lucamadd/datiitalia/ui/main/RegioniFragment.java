@@ -31,6 +31,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.lucamadd.datiitalia.Helper.AndamentoRegionale;
 import com.lucamadd.datiitalia.Helper.DataHelper;
+import com.lucamadd.datiitalia.Helper.Measurement;
 import com.lucamadd.datiitalia.R;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class RegioniFragment extends Fragment {
     private TextView totale_attualmente_positivi_piu = null;
     private TextView dimessi_guariti_piu = null;
     private TextView deceduti_piu = null;
+    private TextView tamponi_piu = null;
 
     private TextView data_regioni = null;
     private PageViewModel pageViewModel;
@@ -275,6 +277,7 @@ public class RegioniFragment extends Fragment {
         totale_attualmente_positivi_piu = root.findViewById(R.id.totaleattualmentepositiviregionipiu);
         dimessi_guariti_piu = root.findViewById(R.id.dimessiguaritiregionipiu);
         deceduti_piu = root.findViewById(R.id.decedutiregionipiu);
+        tamponi_piu = root.findViewById(R.id.tamponiregionipiu);
         /*
         final TextView textView = root.findViewById(R.id.section_label);
         pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -369,7 +372,8 @@ public class RegioniFragment extends Fragment {
             variazione_totale_positivi.setText("+" + decim.format(selectedRegion.getVariazione_totale_positivi()));
             dimessi_guariti.setText(decim.format(selectedRegion.getDimessi_guariti()) + "");
             deceduti.setText(decim.format(selectedRegion.getDeceduti()) + "");
-            tamponi.setText(decim.format(selectedRegion.getTamponi()) + "");
+            //tamponi.setText(decim.format(selectedRegion.getTamponi()) + "");
+            tamponi.setText(new Measurement(selectedRegion.getTamponi()).toString());
             casi_totali_regioni_piu.setText("+" + decim.format(selectedRegion.getNuovi_positivi()));
             regioniProgressBar.setVisibility(View.GONE);
             regioniEditButton.setEnabled(true);
@@ -398,6 +402,7 @@ public class RegioniFragment extends Fragment {
             int totale_attualmente_positivi_piu_ = selectedRegion.getTotale_positivi();
             int dimessi_guariti_piu_ = selectedRegion.getDimessi_guariti();
             int deceduti_piu_ = selectedRegion.getDeceduti();
+            int tamponi_piu_ = selectedRegion.getTamponi();
 
             if (ricoverati_con_sintomi_piu_ > 0){
                 ricoverati_con_sintomi_piu.setText("+" + decim.format(ricoverati_con_sintomi_piu_));
@@ -447,6 +452,11 @@ public class RegioniFragment extends Fragment {
             } else {
                 deceduti_piu.setText("" + decim.format(deceduti_piu_));
                 deceduti_piu.setTextColor(Color.rgb(0,153,51));
+            }
+            if (tamponi_piu_ == 0){
+                tamponi_piu.setText("0");
+            } else {
+                tamponi_piu.setText("+" + decim.format(tamponi_piu_).substring(1));
             }
 
             regioniProgressBar.setVisibility(View.GONE);

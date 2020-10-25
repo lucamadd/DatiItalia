@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -40,6 +41,9 @@ public class DataHelper {
     private static final String URL_ANDAMENTO_PROVINCIALE = "https://raw.githubusercontent.com/" +
             "pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json";
 
+    private static final String URL_NOTE = "https://raw.githubusercontent.com/" +
+            "pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-note.json";
+
     private OkHttpClient client = new OkHttpClient();
 
 
@@ -54,6 +58,8 @@ public class DataHelper {
 
     private ArrayList<AndamentoNazionale> graphData = null;
     private ArrayList<AndamentoRegionale> graphRegionData = null;
+
+    private Note noteGiornaliere = null;
 
 
     @SuppressWarnings("deprecation")
@@ -338,6 +344,10 @@ public class DataHelper {
 
     public ArrayList<AndamentoNazionale> getGraphData() { return graphData; }
 
+    public Note getNoteGiornaliere(){
+        return noteGiornaliere;
+    }
+
     public ArrayList<AndamentoRegionale> getGraphRegionData() {
         /*
         String response = run(URL_ANDAMENTO_REGIONALE);
@@ -365,6 +375,27 @@ public class DataHelper {
          */
         Log.i("graphregiondata","graphRegionData.size() is "+ (graphRegionData == null? "null": graphRegionData.size()));
         return graphRegionData;
+    }
+
+    public void getNoteData(){
+        try {
+            String httpResponse = run(URL_NOTE);
+            if (httpResponse != null){
+                JsonParser parser = new JsonParser();
+                JsonArray jArray = (JsonArray) parser.parse(httpResponse);
+                Gson gson = new Gson();
+                ArrayList<Note> dati = new ArrayList<>();
+                for (int i=0;i<jArray.size();i++){
+                    dati.add(gson.fromJson(jArray.get(i)
+                            .toString(), Note.class));
+                }
+                noteGiornaliere = dati.get(dati.size()-1);
+
+            } else
+                noteGiornaliere = new Note("","");
+        } catch(JsonSyntaxException e){
+            Log.i("ERRORE ","JSON");
+        }
     }
 
     public void setDatiNazionali(AndamentoNazionale dati) {
@@ -415,5 +446,11 @@ public class DataHelper {
         return currentDayText;
     }
 
+    public boolean checkNote(Note note){
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate= DateFor.format(date);
+        return stringDate.equals(note.getData().substring(0,10));
+    }
 
 }

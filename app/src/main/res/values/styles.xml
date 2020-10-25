@@ -89,4 +89,12 @@
     <style name="SpinnerTheme">
         <item name="android:textViewStyle" > @style/RobotoTextViewStyle </item>
     </style>
+    <style name="DarkAlertDialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/ic_launcher_background</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#a8a8a8</item>
+        <!-- Used for the background -->
+        <item name="android:background">#1d1d1d</item>
+    </style>
 </resources>

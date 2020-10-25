@@ -262,7 +262,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnambold"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             />
 
                         <TextView
@@ -273,7 +273,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentRight="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnamregular"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             />
                     </RelativeLayout>
 
@@ -318,7 +318,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnambold"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             />
 
                         <TextView
@@ -329,7 +329,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentRight="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnamregular"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             />
                     </RelativeLayout>
 
@@ -381,7 +381,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnambold"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             />
 
                         <TextView
@@ -392,7 +392,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentRight="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnamregular"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             />
                     </RelativeLayout>
 
@@ -437,7 +437,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnambold"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             />
 
                         <TextView
@@ -448,7 +448,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentRight="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnamregular"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             />
                     </RelativeLayout>
 
@@ -501,7 +501,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnambold"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             />
 
                         <TextView
@@ -512,7 +512,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentRight="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnamregular"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             />
                     </RelativeLayout>
 
@@ -558,7 +558,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnambold"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             />
 
                         <TextView
@@ -569,7 +569,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentRight="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnamregular"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             />
                     </RelativeLayout>
 
@@ -622,7 +622,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:fontFamily="@font/bevietnambold"
                             android:textColor="#000000"
-                            android:textSize="18dp" />
+                            android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/totaleattualmentepositiviregionipiu"
@@ -632,7 +632,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:fontFamily="@font/bevietnamregular"
                             android:textColor="#000000"
-                            android:textSize="16dp" />
+                            android:textSize="14dp" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -674,7 +674,7 @@ android:id="@+id/regioni_first_layout">
                             android:layout_alignParentBottom="true"
                             android:textColor="#000000"
                             android:fontFamily="@font/bevietnambold"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             />
 
                         <TextView
@@ -683,9 +683,9 @@ android:id="@+id/regioni_first_layout">
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
-                            android:textColor="#000000"
+                            android:textColor="#FF0000"
                             android:fontFamily="@font/bevietnamregular"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>

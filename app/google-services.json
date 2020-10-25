@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "880699534886",
+    "firebase_url": "https://dati-italia.firebaseio.com",
+    "project_id": "dati-italia",
+    "storage_bucket": "dati-italia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880699534886:android:d562531e0b789ef6c9c0e7",
+        "android_client_info": {
+          "package_name": "com.lucamadd.datiitalia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880699534886-1h1v4q8ne8b39p0phsuf954rlvgdphg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaLJjqntFDd3b1STtpIgHvMe2TQC4dLZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880699534886-1h1v4q8ne8b39p0phsuf954rlvgdphg5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
