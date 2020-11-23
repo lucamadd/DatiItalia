@@ -313,7 +313,7 @@ public class ProvinceFragment extends Fragment {
         ArrayList<AndamentoProvinciale> selectedProvince = new ArrayList<>();
         ArrayList<AndamentoProvinciale> selectedProvinceNuovi = new ArrayList<>();
 
-        if (dati != null){
+        if (dati != null && datiNuovi != null){
             for (AndamentoProvinciale ar: dati){
                 if (ar.getDenominazione_regione().equals(regione)) {
                     selectedProvince.add(ar);
@@ -451,7 +451,8 @@ public class ProvinceFragment extends Fragment {
             provinceProgressBar.setVisibility(View.VISIBLE);
             provinceEditButton.setEnabled(false);
             masterLayout.setVisibility(View.GONE);
-
+            Toast.makeText(getContext(), "C'è stato un errore nella ricezione dei dati. " +
+                    "Contatta lo sviluppatore per maggiori informazioni.", Toast.LENGTH_LONG);
         }
     }
 

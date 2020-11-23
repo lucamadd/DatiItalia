@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -383,6 +384,8 @@ public class RegioniFragment extends Fragment {
             regioniProgressBar.setVisibility(View.VISIBLE);
             regioniEditButton.setEnabled(false);
             masterLayout.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "C'è stato un errore nella ricezione dei dati. " +
+                    "Contatta lo sviluppatore per maggiori informazioni.", Toast.LENGTH_LONG);
 
         }
     }

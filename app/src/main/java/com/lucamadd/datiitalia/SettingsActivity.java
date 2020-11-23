@@ -147,6 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage(Html.fromHtml("<ul>" +
                             "<li>Aggiunta la possibilità di vedere il numero di tamponi giornalieri</li>" +
+                            "<li>Scheda andamento: aggiunta la possibilità di visualizzare il riepilogo regionale</li>" +
                             "<li>Ora è possibile visualizzare le note giornaliere (se presenti)</li>" +
                             "<li>Risolto un bug che impediva di lasciare un feedback</li>" +
                             "<li>Aggiunta notifica giornaliera</li>" +

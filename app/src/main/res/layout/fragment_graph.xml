@@ -45,6 +45,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="50dp">
             <LinearLayout
+                android:id="@+id/graph_scrollview_ll"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="match_parent"
@@ -191,6 +192,1371 @@
                         android:padding="16dp"
                         android:layout_height="match_parent"/>
                 </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvandamentoregionalegraph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Riepilogo regionale"
+                        android:textSize="28dp"
+                        android:fontFamily="@font/bevietnambold"
+                        android:textColor="#000000"
+                        />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardAbruzzo"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardBackgroundColor="#ffffff"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textAbruzzo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Abruzzo"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiAbruzzo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiAbruzzoPiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardBasilicata"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardBackgroundColor="#ffffff"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textBasilicata"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Basilicata"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiBasilicata"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiBasilicatapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardBolzano"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textBolzano"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="P.A. Bolzano"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiBolzano"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiBolzanopiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCalabria"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textCalabria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Calabria"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiCalabria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiCalabriapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCampania"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textCampania"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Campania"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiCampania"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiCampaniapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardEmiliaRomagna"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textEmiliaRomagna"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Emilia-Romagna"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiEmiliaRomagna"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiEmiliaRomagnapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardFriuliVeneziaGiulia"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textFriuliVeneziaGiulia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Friuli Venezia Giulia"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiFriuliVeneziaGiulia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiFriuliVeneziaGiuliapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardLazio"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textLazio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Lazio"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiLazio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiLaziopiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardLiguria"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textLiguria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Liguria"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiLiguria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiLiguriapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardLombardia"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textLombardia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Lombardia"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiLombardia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiLombardiapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardMarche"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textMarche"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Marche"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiMarche"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiMarchepiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardMolise"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textMolise"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Molise"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiMolise"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiMolisepiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardPiemonte"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textPiemonte"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Piemonte"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiPiemonte"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiPiemontepiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardPuglia"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textPuglia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Puglia"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiPuglia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiPugliapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardSardegna"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textSardegna"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Sardegna"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiSardegna"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiSardegnapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardSicilia"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textSicilia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Sicilia"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiSicilia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiSiciliaPiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardToscana"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textToscana"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Toscana"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiToscana"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiToscanapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardTrento"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textTrento"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="P.A. Trento"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiTrento"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiTrentopiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardUmbria"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textUmbria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Umbria"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiUmbria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiUmbriaPiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardValleDAosta"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textValleDAosta"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Valle d'Aosta"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiValleDAosta"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiValleDAostapiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardVeneto"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="8dp"
+                        android:elevation="8dp"
+                        android:divider="@android:color/transparent"
+                        app:cardBackgroundColor="#ffffff"
+                        android:dividerHeight="0.0px"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textVeneto"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bevietnambold"
+                                android:text="Veneto"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:id="@+id/casiVeneto"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:textColor="#000000"
+                                android:text=""
+                                android:fontFamily="@font/bevietnambold"
+                                android:textSize="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/casiVenetopiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:text=""
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/ic_launcher_background"
+                                android:fontFamily="@font/bevietnamregular"
+                                android:textSize="16dp"
+                                />
+                        </RelativeLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
 

@@ -287,6 +287,8 @@ public class PlaceholderFragment extends Fragment {
             casi_totali_italia_piu.setText("+" + decim.format(dati.getNuovi_positivi()));
         } else {
             italiaProgressBar.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "C'è stato un errore nella ricezione dei dati. " +
+                    "Contatta lo sviluppatore per maggiori informazioni.", Toast.LENGTH_LONG);
         }
     }
 
@@ -363,7 +365,8 @@ public class PlaceholderFragment extends Fragment {
 
         } else {
             italiaProgressBar.setVisibility(View.VISIBLE);
-
+            Toast.makeText(getContext(), "C'è stato un errore nella ricezione dei dati. " +
+                    "Contatta lo sviluppatore per maggiori informazioni.", Toast.LENGTH_LONG);
         }
     }
 
@@ -486,7 +489,7 @@ public class PlaceholderFragment extends Fragment {
     public void checkUpdates(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String curr_version = "v0.10b";
+        String curr_version = "v0.11b";
         String server_version = null;
         try {
             server_version = SettingsActivity.getFinalURL("https://github.com/lucamadd/DatiItalia/releases/latest");
@@ -552,6 +555,7 @@ public class PlaceholderFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(Html.fromHtml("<ul>" +
                     "<li>Aggiunta la possibilità di vedere il numero di tamponi giornalieri</li>" +
+                    "<li>Scheda andamento: aggiunta la possibilità di visualizzare il riepilogo regionale</li>" +
                     "<li>Ora è possibile visualizzare le note giornaliere (se presenti)</li>" +
                     "<li>Risolto un bug che impediva di lasciare un feedback</li>" +
                     "<li>Aggiunta notifica giornaliera</li>" +

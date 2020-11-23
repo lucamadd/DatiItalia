@@ -1,6 +1,7 @@
 package com.lucamadd.datiitalia.Helper;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -280,6 +282,7 @@ public class DataHelper {
             try {
                 String response = run(URL_ANDAMENTO_PROVINCIALE);
                 if (response != null){
+                    response = response.replace("ß","");  //hardcoded fix for 23/11 bug
                     JsonParser parser = new JsonParser();
                     JsonArray jArray = (JsonArray) parser.parse(response);
                     Gson gson = new Gson();
@@ -450,7 +453,20 @@ public class DataHelper {
         Date date = new Date();
         SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
         String stringDate= DateFor.format(date);
-        return stringDate.equals(note.getData().substring(0,10));
+        String stringDataYesterday = getYesterdayDateString();;
+        //ritorna vero se oggi ci sono note oppure se c'erano note ieri ma non sono ancora le 17
+        return stringDate.equals(note.getData().substring(0,10)) || stringDataYesterday.equals(note.getData().substring(0,10));
+    }
+
+    private Date yesterday() {
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
+    }
+
+    private String getYesterdayDateString() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(yesterday());
     }
 
 }
